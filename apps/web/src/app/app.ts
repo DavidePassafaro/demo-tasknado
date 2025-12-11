@@ -14,4 +14,23 @@ export class App {
     { label: 'About', link: '/about' },
     { label: 'Contact', link: '/contact' },
   ];
+
+  protected readonly footerSections = [
+    {
+      title: 'Company',
+      links: [
+        { label: 'About Us', link: '/about' },
+        { label: 'Careers', link: '/careers' },
+        { label: 'Press', link: '/press' },
+      ],
+    },
+    {
+      title: 'Support',
+      links: [
+        { label: 'Help Center', link: '/help' },
+        { label: 'Terms of Service', link: '/terms' },
+        { label: 'Privacy Policy', link: '/privacy' },
+      ],
+    },
+  ];
 }
