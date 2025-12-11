@@ -1,4 +1,4 @@
-<header class="header" [class.header--light]="!isDarkMode()">
+<header class="header">
   <div class="header__container">
     <div class="header__logo">
       @if (logoImage()) {
@@ -21,13 +21,9 @@
       <button
         class="header__theme-toggle"
         (click)="toggleTheme()"
-        [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+        aria-label="Toggle dark mode"
       >
-        @if (isDarkMode()) {
-          <span>☀️</span>
-        } @else {
-          <span>🌙</span>
-        }
+        <span>🌓</span>
       </button>
 
       <button

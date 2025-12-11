@@ -1,39 +1,22 @@
+// Variables
+$color-light-bg: #f5f5f5;
+$color-light-text: #333;
+$color-dark-bg: #333;
+$color-dark-text: white;
+$color-accent: #4caf50;
+$color-border-light: #ddd;
+$color-border-dark: #555;
+$breakpoint-mobile: 768px;
+$transition-time: 0.3s;
+
+// Base styles (default light theme)
 .header {
-  background-color: #333;
-  color: white;
+  background-color: $color-light-bg;
+  color: $color-light-text;
   padding: 1rem 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: relative;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  &--light {
-    background-color: #f5f5f5;
-    color: #333;
-
-    .header__nav {
-      @media (max-width: 768px) {
-        background-color: #f5f5f5;
-      }
-    }
-
-    .header__nav-list {
-      a {
-        color: #333;
-
-        @media (max-width: 768px) {
-          border-bottom: 1px solid #ddd;
-        }
-
-        &:hover {
-          color: #4caf50;
-        }
-      }
-    }
-
-    .header__hamburger-line {
-      background-color: #333;
-    }
-  }
+  transition: background-color $transition-time ease, color $transition-time ease;
 
   &__container {
     max-width: 1200px;
@@ -65,17 +48,17 @@
     display: flex;
     gap: 2rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       position: absolute;
       top: 100%;
       left: 0;
       right: 0;
-      background-color: #333;
+      background-color: $color-light-bg;
       flex-direction: column;
       gap: 0;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.3s ease-in-out;
+      transition: max-height $transition-time ease-in-out;
 
       &--open {
         max-height: 400px;
@@ -90,26 +73,26 @@
     display: flex;
     gap: 2rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       flex-direction: column;
       gap: 0;
       width: 100%;
     }
 
     a {
-      color: white;
+      color: $color-light-text;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color $transition-time ease;
       display: block;
       padding: 1rem;
 
-      @media (max-width: 768px) {
+      @media (max-width: $breakpoint-mobile) {
         padding: 0.75rem 1rem;
-        border-bottom: 1px solid #555;
+        border-bottom: 1px solid $color-border-light;
       }
 
       &:hover {
-        color: #4caf50;
+        color: $color-accent;
       }
     }
   }
@@ -126,7 +109,7 @@
     cursor: pointer;
     font-size: 1.5rem;
     padding: 0.5rem;
-    transition: transform 0.3s ease;
+    transition: transform $transition-time ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,7 +131,7 @@
     cursor: pointer;
     gap: 0.5rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-mobile) {
       display: flex;
     }
   }
@@ -156,7 +139,37 @@
   &__hamburger-line {
     width: 25px;
     height: 3px;
-    background-color: white;
-    transition: all 0.3s ease;
+    background-color: $color-light-text;
+    transition: all $transition-time ease;
+  }
+}
+
+// Dark theme
+::ng-deep body[data-theme='dark'] {
+  .header {
+    background-color: $color-dark-bg;
+    color: $color-dark-text;
+
+    &__nav {
+      @media (max-width: $breakpoint-mobile) {
+        background-color: $color-dark-bg;
+      }
+    }
+
+    &__nav-list a {
+      color: $color-dark-text !important;
+
+      @media (max-width: $breakpoint-mobile) {
+        border-bottom: 1px solid $color-border-dark;
+      }
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    &__hamburger-line {
+      background-color: $color-dark-text;
+    }
   }
 }

@@ -1,32 +1,25 @@
+// Variables
+$color-light-bg: #f9f9f9;
+$color-light-text: #333;
+$color-light-text-secondary: #666;
+$color-light-border: #ddd;
+$color-dark-bg: #222;
+$color-dark-text: #ccc;
+$color-dark-text-secondary: #aaa;
+$color-dark-border: #444;
+$color-accent: #4caf50;
+$transition-time: 0.3s;
+$breakpoint-tablet: 768px;
+$breakpoint-mobile: 480px;
+
+// Base styles (default light theme)
 .footer {
-  background-color: #222;
-  color: #ccc;
+  background-color: $color-light-bg;
+  color: $color-light-text;
   padding: 1rem 0;
   margin-top: auto;
-  border-top: 1px solid #444;
-  transition: background-color 0.3s ease, color 0.3s ease;
-
-  &--light {
-    background-color: #f9f9f9;
-    color: #333;
-    border-top: 1px solid #ddd;
-
-    .footer__section-title {
-      color: #333;
-    }
-
-    .footer__links a {
-      color: #666;
-
-      &:hover {
-        color: #4caf50;
-      }
-    }
-
-    .footer__copyright {
-      color: #666;
-    }
-  }
+  border-top: 1px solid $color-light-border;
+  transition: background-color $transition-time ease, color $transition-time ease;
 
   &__container {
     max-width: 1200px;
@@ -40,12 +33,12 @@
     gap: 2rem;
     margin-bottom: 2rem;
 
-    @media (max-width: 768px) {
+    @media (max-width: $breakpoint-tablet) {
       grid-template-columns: repeat(2, 1fr);
       gap: 1rem;
     }
 
-    @media (max-width: 480px) {
+    @media (max-width: $breakpoint-mobile) {
       grid-template-columns: 1fr;
     }
   }
@@ -59,7 +52,7 @@
     margin: 0 0 1rem;
     font-size: 1.1rem;
     font-weight: 600;
-    color: #fff;
+    color: $color-light-text;
   }
 
   &__links {
@@ -71,18 +64,18 @@
     gap: 0.5rem;
 
     a {
-      color: #aaa;
+      color: $color-light-text-secondary;
       text-decoration: none;
-      transition: color 0.3s ease;
+      transition: color $transition-time ease;
 
       &:hover {
-        color: #4caf50;
+        color: $color-accent;
       }
     }
   }
 
   &__bottom {
-    border-top: 1px solid #444;
+    border-top: 1px solid $color-light-border;
     padding-top: 1rem;
     text-align: center;
   }
@@ -90,6 +83,35 @@
   &__copyright {
     margin: 0;
     font-size: 0.9rem;
-    color: #888;
+    color: $color-light-text-secondary;
+  }
+}
+
+// Dark theme
+::ng-deep body[data-theme='dark'] {
+  .footer {
+    background-color: $color-dark-bg;
+    color: $color-dark-text;
+    border-top: 1px solid $color-dark-border;
+
+    &__section-title {
+      color: #fff;
+    }
+
+    &__links a {
+      color: $color-dark-text-secondary;
+
+      &:hover {
+        color: $color-accent;
+      }
+    }
+
+    &__copyright {
+      color: #888;
+    }
+
+    &__bottom {
+      border-top: 1px solid $color-dark-border;
+    }
   }
 }

@@ -19,5 +19,4 @@ export interface FooterSection {
 export class FooterComponent {
   sections = input<FooterSection[]>([]);
   companyName = input<string>();
-  isDarkMode = input<boolean>(true);
 }

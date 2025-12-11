@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 
 export interface NavItem {
   label: string;
@@ -11,13 +11,16 @@ export interface NavItem {
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   navItems = input<NavItem[]>([]);
   logoText = input<string>('Logo');
   logoImage = input<string>('');
 
   isMenuOpen = signal(false);
-  isDarkMode = signal(true);
+
+  ngOnInit() {
+    document.body.setAttribute('data-theme', 'light');
+  }
 
   toggleMenu() {
     this.isMenuOpen.update((value) => !value);
@@ -28,6 +31,12 @@ export class HeaderComponent {
   }
 
   toggleTheme() {
-    this.isDarkMode.update((value) => !value);
+    const body = document.body;
+    const isDark = body.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      body.setAttribute('data-theme', 'light');
+    } else {
+      body.setAttribute('data-theme', 'dark');
+    }
   }
 }
