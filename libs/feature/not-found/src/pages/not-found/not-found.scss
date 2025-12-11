@@ -46,28 +46,6 @@
       font-size: 1rem;
     }
   }
-
-  &__link {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background-color: white;
-    color: #667eea;
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-      background-color: #f8f9fa;
-    }
-
-    &:active {
-      transform: translateY(0);
-    }
-  }
 }
 
 @keyframes float {
