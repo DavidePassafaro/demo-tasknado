@@ -58,6 +58,31 @@
       "!{projectRoot}/test-setup.[jt]s"
     ]
   },
+  "lint": {
+    "lintOnChange": false
+  },
+  "eslintConfig": {
+    "extends": ["plugin:nx/typescript"],
+    "rules": {
+      "@nx/enforce-module-boundaries": [
+        "error",
+        {
+          "enforceBuildableLibDependency": true,
+          "allow": [],
+          "depConstraints": [
+            {
+              "sourceTag": "type:feature",
+              "onlyDependOnLibsWithTags": ["type:shared", "type:feature"]
+            },
+            {
+              "sourceTag": "type:shared",
+              "onlyDependOnLibsWithTags": ["type:shared"]
+            }
+          ]
+        }
+      ]
+    }
+  },
   "generators": {
     "@nx/angular:application": {
       "e2eTestRunner": "none",
