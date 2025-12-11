@@ -1,1 +1,45 @@
-<p>header.component works!</p>
+<header class="header" [class.header--light]="!isDarkMode()">
+  <div class="header__container">
+    <div class="header__logo">
+      @if (logoImage()) {
+        <img [src]="logoImage()" alt="Logo" class="header__logo-image" />
+      }
+      <h1>{{ logoText() }}</h1>
+    </div>
+
+    <nav class="header__nav" [class.header__nav--open]="isMenuOpen()">
+      <ul class="header__nav-list">
+        @for (item of navItems(); track item.link) {
+          <li>
+            <a [href]="item.link" (click)="closeMenu()">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <button
+        class="header__theme-toggle"
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'"
+      >
+        @if (isDarkMode()) {
+          <span>☀️</span>
+        } @else {
+          <span>🌙</span>
+        }
+      </button>
+
+      <button
+        class="header__hamburger"
+        [attr.aria-expanded]="isMenuOpen()"
+        (click)="toggleMenu()"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="header__hamburger-line"></span>
+        <span class="header__hamburger-line"></span>
+        <span class="header__hamburger-line"></span>
+      </button>
+    </div>
+  </div>
+</header>

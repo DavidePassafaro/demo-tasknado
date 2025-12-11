@@ -9,5 +9,9 @@ import { FooterComponent, HeaderComponent } from '@shared/ui';
   imports: [RouterModule, HeaderComponent, FooterComponent],
 })
 export class App {
-  protected title = 'web';
+  protected readonly navItems = [
+    { label: 'Home', link: '/' },
+    { label: 'About', link: '/about' },
+    { label: 'Contact', link: '/contact' },
+  ];
 }
