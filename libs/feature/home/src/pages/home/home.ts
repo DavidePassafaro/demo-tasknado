@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PrimaryButtonComponent } from '@shared/ui';
 
 interface Feature {
   icon: string;
@@ -11,7 +12,7 @@ interface Feature {
   selector: 'tn-home',
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  imports: [CommonModule],
+  imports: [CommonModule, PrimaryButtonComponent],
 })
 export class Home implements OnInit {
   features: Feature[] = [];

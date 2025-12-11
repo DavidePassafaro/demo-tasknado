@@ -31,29 +31,6 @@
       opacity: 0.9;
       line-height: 1.6;
     }
-
-    .cta-button {
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      background-color: white;
-      color: #667eea;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        background-color: #f8f9fa;
-      }
-
-      &:active {
-        transform: translateY(0);
-      }
-    }
   }
 }
 
