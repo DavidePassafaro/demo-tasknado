@@ -4,7 +4,9 @@
     <div class="hero-content">
       <h1>Tasknado</h1>
       <p class="tagline">Your All-in-One Project Management Tool</p>
-      <p class="description">Manage projects, collaborate with your team, and achieve your goals with ease</p>
+      <p class="description">
+        Manage projects, collaborate with your team, and achieve your goals with ease
+      </p>
       <button tn-primary-button>Get Started Free</button>
     </div>
   </section>
@@ -17,11 +19,13 @@
     </div>
 
     <div class="features-grid">
-      <div class="feature-card" *ngFor="let feature of features">
+      @for (feature of features; track $index) {
+      <div class="feature-card">
         <div class="feature-icon">{{ feature.icon }}</div>
         <h3>{{ feature.title }}</h3>
         <p>{{ feature.description }}</p>
       </div>
+      }
     </div>
   </section>
 
@@ -45,14 +49,24 @@
   </section>
 
   <!-- Chart Section -->
+  @defer (on viewport) {
   <section class="chart-section">
     <div class="section-header">
       <h2>Track Your Progress</h2>
       <p>Monitor tasks completion and pending work over time</p>
     </div>
-    <tn-line-chart 
+    <tn-line-chart
       [data]="chartData"
       [options]="{ height: 400, showLegend: true, showGrid: true }"
     ></tn-line-chart>
   </section>
+  } @placeholder {
+  <section class="chart-section">
+    <div class="section-header">
+      <h2>Track Your Progress</h2>
+      <p>Monitor tasks completion and pending work over time</p>
+    </div>
+    <div class="chart-placeholder">Loading chart...</div>
+  </section>
+  }
 </div>

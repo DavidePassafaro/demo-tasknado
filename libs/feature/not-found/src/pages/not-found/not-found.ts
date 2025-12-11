@@ -8,4 +8,4 @@ import { PrimaryButtonComponent } from '@shared/ui';
   styleUrl: './not-found.scss',
   imports: [RouterModule, PrimaryButtonComponent],
 })
-export class NotFound {}
+export class NotFoundPage {}

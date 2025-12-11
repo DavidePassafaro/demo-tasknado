@@ -1,25 +1,6 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-export interface LineChartData {
-  labels: string[];
-  datasets: {
-    label: string;
-    data: number[];
-    borderColor?: string;
-    backgroundColor?: string;
-    tension?: number;
-    fill?: boolean;
-  }[];
-}
-
-export interface LineChartOptions {
-  height?: number;
-  showLegend?: boolean;
-  showGrid?: boolean;
-  responsive?: boolean;
-  animationDuration?: number;
-}
+import { LineChartData, LineChartOptions } from './line-chart.model';
 
 @Component({
   selector: 'tn-line-chart',
@@ -28,7 +9,7 @@ export interface LineChartOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
 })
-export class LineChartComponent implements AfterViewInit{
+export class LineChartComponent implements AfterViewInit {
   data = input<LineChartData>({
     labels: [],
     datasets: [],
@@ -143,12 +124,7 @@ export class LineChartComponent implements AfterViewInit{
     }
   }
 
-  private drawAxes(
-    ctx: CanvasRenderingContext2D,
-    padding: number,
-    width: number,
-    height: number
-  ) {
+  private drawAxes(ctx: CanvasRenderingContext2D, padding: number, width: number, height: number) {
     ctx.strokeStyle = '#374151';
     ctx.lineWidth = 2;
 

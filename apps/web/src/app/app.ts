@@ -11,8 +11,8 @@ import { FooterComponent, HeaderComponent } from '@shared/ui';
 export class App {
   protected readonly navItems = [
     { label: 'Home', link: '/' },
-    { label: 'About', link: '/about' },
-    { label: 'Contact', link: '/contact' },
+    { label: 'Taks', link: '/tasks' },
+    { label: 'Projects', link: '/projects' },
   ];
 
   protected readonly footerSections = [

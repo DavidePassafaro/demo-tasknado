@@ -4,11 +4,12 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('@feature/home').then((m) => m.Home),
+    loadComponent: () => import('@feature/home').then((m) => m.HomePage),
   },
   {
     path: '404',
-    loadComponent: () => import('@feature/not-found').then((m) => m.NotFound),
+    pathMatch: 'full',
+    loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
   },
   {
     path: '**',
