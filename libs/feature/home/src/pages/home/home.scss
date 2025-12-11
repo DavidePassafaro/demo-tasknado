@@ -136,31 +136,39 @@
   }
 }
 
-@media (max-width: 768px) {
-  .hero {
-    padding: 4rem 1rem;
+.chart-section {
+  padding: 5rem 2rem;
+  background: white;
+  text-align: center;
 
-    .hero-content {
-      h1 {
-        font-size: 2.5rem;
-      }
+  .section-header {
+    margin-bottom: 3rem;
 
-      .tagline {
-        font-size: 1.2rem;
-      }
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1f2937;
+    }
 
-      .description {
-        font-size: 1rem;
-      }
+    p {
+      font-size: 1.1rem;
+      color: #6b7280;
     }
   }
 
-  .features,
-  .benefits {
-    padding: 3rem 1rem;
+  tn-line-chart {
+    max-width: 1200px;
+    margin: 0 auto;
   }
+}
 
-  .section-header h2 {
-    font-size: 2rem;
+@media (max-width: 768px) {
+  .chart-section {
+    padding: 3rem 1rem;
+
+    .section-header h2 {
+      font-size: 2rem;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PrimaryButtonComponent } from '@shared/ui';
+import { PrimaryButtonComponent, LineChartComponent, LineChartData } from '@shared/ui';
 
 interface Feature {
   icon: string;
@@ -12,12 +12,15 @@ interface Feature {
   selector: 'tn-home',
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  imports: [CommonModule, PrimaryButtonComponent],
+  imports: [CommonModule, PrimaryButtonComponent, LineChartComponent],
 })
 export class Home implements OnInit {
   features: Feature[] = [];
+  chartData!: LineChartData;
 
   ngOnInit() {
+    this.initializeChartData();
+
     this.features = [
       {
         icon: '📋',
@@ -50,5 +53,23 @@ export class Home implements OnInit {
         description: 'Automate workflows and save time on repetitive tasks'
       }
     ];
+  }
+
+  private initializeChartData() {
+    this.chartData = {
+      labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+      datasets: [
+        {
+          label: 'Tasks Completed',
+          data: [45, 52, 48, 65, 72],
+          borderColor: '#667eea',
+        },
+        {
+          label: 'Tasks Pending',
+          data: [20, 18, 25, 15, 10],
+          borderColor: '#764ba2',
+        }
+      ]
+    };
   }
 }

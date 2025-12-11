@@ -43,4 +43,16 @@
       </div>
     </div>
   </section>
+
+  <!-- Chart Section -->
+  <section class="chart-section">
+    <div class="section-header">
+      <h2>Track Your Progress</h2>
+      <p>Monitor tasks completion and pending work over time</p>
+    </div>
+    <tn-line-chart 
+      [data]="chartData"
+      [options]="{ height: 400, showLegend: true, showGrid: true }"
+    ></tn-line-chart>
+  </section>
 </div>
