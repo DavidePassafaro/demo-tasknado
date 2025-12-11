@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output, HostBinding, HostListener, ViewEncapsulation } from '@angular/core';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
@@ -6,13 +6,15 @@ import { ChangeDetectionStrategy, Component, input, output } from '@angular/core
   templateUrl: './primary-button.component.html',
   styleUrl: './primary-button.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
 })
 export class PrimaryButtonComponent {
-  disabled = input<boolean>(false);
-  type = input<'button' | 'submit' | 'reset'>('button');
-
   clicked = output<void>();
 
+  @HostBinding('class.primary-button')
+  buttonClass = true;
+
+  @HostListener('click')
   onButtonClick() {
     this.clicked.emit();
   }
