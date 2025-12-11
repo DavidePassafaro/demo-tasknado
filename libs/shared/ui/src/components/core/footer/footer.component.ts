@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 export interface FooterLink {
   label: string;
@@ -14,6 +15,7 @@ export interface FooterSection {
   selector: 'tn-footer',
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
+  imports: [RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FooterComponent {

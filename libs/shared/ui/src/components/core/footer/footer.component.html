@@ -7,7 +7,7 @@
           <ul class="footer__links">
             @for (link of section.links; track link.link) {
               <li>
-                <a [href]="link.link">{{ link.label }}</a>
+                <a [routerLink]="link.link">{{ link.label }}</a>
               </li>
             }
           </ul>
