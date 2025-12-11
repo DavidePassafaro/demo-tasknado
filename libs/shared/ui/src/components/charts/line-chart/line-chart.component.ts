@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LineChartData, LineChartOptions } from './line-chart.model';
 
 @Component({
@@ -7,7 +6,6 @@ import { LineChartData, LineChartOptions } from './line-chart.model';
   templateUrl: './line-chart.component.html',
   styleUrl: './line-chart.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule],
 })
 export class LineChartComponent implements AfterViewInit {
   data = input<LineChartData>({
