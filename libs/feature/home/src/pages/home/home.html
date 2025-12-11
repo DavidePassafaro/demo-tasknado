@@ -20,11 +20,11 @@
 
     <div class="features-grid">
       @for (feature of features; track $index) {
-      <div class="feature-card">
-        <div class="feature-icon">{{ feature.icon }}</div>
-        <h3>{{ feature.title }}</h3>
-        <p>{{ feature.description }}</p>
-      </div>
+      <tn-primary-card
+        [icon]="feature.icon"
+        [title]="feature.title"
+        [description]="feature.description"
+      ></tn-primary-card>
       }
     </div>
   </section>
@@ -49,7 +49,7 @@
   </section>
 
   <!-- Chart Section -->
-@defer (on viewport) {
+  @defer (on viewport) {
   <section class="chart-section">
     <div class="section-header">
       <h2>Track Your Progress</h2>

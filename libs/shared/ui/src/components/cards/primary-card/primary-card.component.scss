@@ -1,0 +1,34 @@
+.primary-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  &__icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  &__title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: #1f2937;
+    margin: 0 0 0.75rem 0;
+  }
+
+  &__description {
+    color: #6b7280;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}

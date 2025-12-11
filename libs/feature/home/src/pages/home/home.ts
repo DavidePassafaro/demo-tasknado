@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PrimaryButtonComponent } from '@shared/ui';
+import { PrimaryButtonComponent, PrimaryCardComponent } from '@shared/ui';
 import { LineChartComponent } from '@shared/ui/charts';
 import type { LineChartData } from '@shared/ui/charts';
 
@@ -13,7 +13,7 @@ interface Feature {
   selector: 'tn-home',
   templateUrl: './home.html',
   styleUrl: './home.scss',
-  imports: [PrimaryButtonComponent, LineChartComponent],
+  imports: [PrimaryButtonComponent, PrimaryCardComponent, LineChartComponent],
 })
 export class HomePage {
   features: Feature[] = [
