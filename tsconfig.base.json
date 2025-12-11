@@ -8,7 +8,8 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@shared/ui": ["libs/shared/ui/src/index.ts"]
+      "@shared/ui": ["libs/shared/ui/src/index.ts"],
+      "@feature/not-found": ["libs/feature/not-found/src/index.ts"]
     }
   }
 }
