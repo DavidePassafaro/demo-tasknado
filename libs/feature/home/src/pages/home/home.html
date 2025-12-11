@@ -1,1 +1,46 @@
-<p>Home works!</p>
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Tasknado</h1>
+      <p class="tagline">Your All-in-One Project Management Tool</p>
+      <p class="description">Manage projects, collaborate with your team, and achieve your goals with ease</p>
+      <button class="cta-button">Get Started Free</button>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="section-header">
+      <h2>Why Tasknado?</h2>
+      <p>Everything you need to manage successful projects</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card" *ngFor="let feature of features">
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h3>{{ feature.title }}</h3>
+        <p>{{ feature.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits">
+    <h2>Boost Your Productivity</h2>
+    <div class="benefits-grid">
+      <div class="benefit-item">
+        <span class="number">50%</span>
+        <p>More Efficiency</p>
+      </div>
+      <div class="benefit-item">
+        <span class="number">10+</span>
+        <p>Integrations</p>
+      </div>
+      <div class="benefit-item">
+        <span class="number">100%</span>
+        <p>Project Visibility</p>
+      </div>
+    </div>
+  </section>
+</div>
