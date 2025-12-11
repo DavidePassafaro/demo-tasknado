@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { PrimaryButtonComponent, LineChartComponent, LineChartData } from '@shared/ui';
+import { PrimaryButtonComponent } from '@shared/ui';
+import { LineChartComponent } from '@shared/ui/charts';
+import type { LineChartData } from '@shared/ui/charts';
 
 interface Feature {
   icon: string;
