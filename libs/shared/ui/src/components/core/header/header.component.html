@@ -11,7 +11,14 @@
       <ul class="header__nav-list">
         @for (item of navItems(); track item.link) {
           <li>
-            <a [href]="item.link" (click)="closeMenu()">{{ item.label }}</a>
+            <a 
+              [routerLink]="item.link" 
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              (click)="closeMenu()"
+            >
+              {{ item.label }}
+            </a>
           </li>
         }
       </ul>

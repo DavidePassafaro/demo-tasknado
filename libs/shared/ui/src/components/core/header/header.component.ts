@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 export interface NavItem {
   label: string;
@@ -9,6 +10,7 @@ export interface NavItem {
   selector: 'tn-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  imports: [RouterLink, RouterLinkActive],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements OnInit {
