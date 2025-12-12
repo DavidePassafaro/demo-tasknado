@@ -1,6 +1,6 @@
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
+import { TaskCardComponent } from '../../components/task-card/task-card';
 
 interface Task {
   id: number;
@@ -19,7 +19,7 @@ interface TaskInput {
   selector: 'tn-tasks',
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
-  imports: [CreateTaskComponent, DatePipe],
+  imports: [CreateTaskComponent, TaskCardComponent],
 })
 export class Tasks {
   tasks: Task[] = [];

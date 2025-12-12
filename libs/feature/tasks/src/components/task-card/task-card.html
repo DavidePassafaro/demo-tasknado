@@ -1,0 +1,36 @@
+<div class="task-item" [class.completed]="task().completed">
+  <div class="task-header">
+    <div class="task-checkbox-title">
+      <input
+        type="checkbox"
+        [checked]="task().completed"
+        (change)="onToggle()"
+        class="task-checkbox"
+        [attr.aria-label]="
+          'Mark as ' + (task().completed ? 'not ' : '') + 'completed: ' + task().title
+        "
+      />
+      <h3 class="task-title">{{ task().title }}</h3>
+    </div>
+
+    <button (click)="onDelete()" class="delete-btn" title="Delete task">×</button>
+  </div>
+
+  @if (task().description) {
+    <p class="task-description">{{ task().description }}</p>
+  }
+
+  <div class="task-meta">
+    <span class="task-status">
+      @if (task().completed) {
+        ✓ Completed
+      } @else {
+        In progress
+      }
+    </span>
+
+    <span class="task-date">
+      {{ task().createdAt | date : 'short' }}
+    </span>
+  </div>
+</div>
