@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FooterComponent, HeaderComponent } from '@shared/ui';
 
@@ -7,6 +7,7 @@ import { FooterComponent, HeaderComponent } from '@shared/ui';
   templateUrl: './app.html',
   styleUrl: './app.scss',
   imports: [RouterModule, HeaderComponent, FooterComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
   protected readonly navItems = [

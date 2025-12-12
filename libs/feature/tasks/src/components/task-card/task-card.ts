@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 export interface Task {
@@ -14,6 +14,7 @@ export interface Task {
   templateUrl: './task-card.html',
   styleUrl: './task-card.scss',
   imports: [DatePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskCardComponent {
   task = input.required<Task>();

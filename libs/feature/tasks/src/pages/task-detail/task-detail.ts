@@ -1,4 +1,4 @@
-import { Component, inject, computed, signal } from '@angular/core';
+import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
 import { TasksService } from '../../services/tasks.service';
@@ -9,6 +9,7 @@ import { CreateTaskComponent } from '../../components/create-task/create-task';
   templateUrl: './task-detail.html',
   styleUrl: './task-detail.scss',
   imports: [DatePipe, CommonModule, CreateTaskComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskDetailComponent {
   private router = inject(Router);

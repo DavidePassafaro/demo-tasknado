@@ -1,4 +1,4 @@
-import { Component, input, output, signal, effect } from '@angular/core';
+import { Component, input, output, signal, effect, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface TaskInput {
@@ -11,6 +11,7 @@ interface TaskInput {
   templateUrl: './create-task.html',
   styleUrl: './create-task.scss',
   imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTaskComponent {
   // Inputs

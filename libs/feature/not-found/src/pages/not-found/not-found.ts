@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { PrimaryButtonComponent } from '@shared/ui';
 
@@ -7,5 +7,6 @@ import { PrimaryButtonComponent } from '@shared/ui';
   templateUrl: './not-found.html',
   styleUrl: './not-found.scss',
   imports: [RouterModule, PrimaryButtonComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFoundPage {}

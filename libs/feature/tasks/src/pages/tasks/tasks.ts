@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router } from '@angular/router';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
@@ -15,6 +15,7 @@ interface TaskInput {
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
   imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Tasks {
   private router = inject(Router);
