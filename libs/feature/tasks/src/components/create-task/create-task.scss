@@ -111,6 +111,11 @@
     }
   }
 
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
   .submit-btn {
     padding: 0.75rem 1.5rem;
     background-color: white;
@@ -121,11 +126,34 @@
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    align-self: flex-start;
+    flex: 1;
 
     &:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .cancel-btn {
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex: 1;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
     }
 
     &:active {

@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal, effect } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface TaskInput {
@@ -13,24 +13,71 @@ interface TaskInput {
   imports: [FormsModule],
 })
 export class CreateTaskComponent {
+  // Inputs
+  initialTitle = input('');
+  initialDescription = input('');
+  isEditMode = input(false);
+
+  // Outputs
   taskCreated = output<TaskInput>();
+  taskSaved = output<TaskInput>();
+  taskEditCancelled = output<void>();
 
   isExpanded = signal(false);
-  taskTitle = '';
-  taskDescription = '';
+  taskTitle = signal('');
+  taskDescription = signal('');
+
+  constructor() {
+    // Effetto per aggiornare i campi quando gli input cambiano
+    effect(() => {
+      const title = this.initialTitle();
+      const description = this.initialDescription();
+      const editMode = this.isEditMode();
+      
+      if (editMode) {
+        this.taskTitle.set(title);
+        this.taskDescription.set(description);
+        this.isExpanded.set(true);
+      } else {
+        this.taskTitle.set('');
+        this.taskDescription.set('');
+        this.isExpanded.set(false);
+      }
+    });
+  }
 
   toggleExpanded() {
     this.isExpanded.update(value => !value);
   }
 
   addTask() {
-    if (this.taskTitle.trim()) {
-      this.taskCreated.emit({
-        title: this.taskTitle,
-        description: this.taskDescription,
-      });
-      this.taskTitle = '';
-      this.taskDescription = '';
+    const title = this.taskTitle().trim();
+    if (!title) {
+      alert('Title cannot be empty');
+      return;
+    }
+
+    const taskInput: TaskInput = {
+      title,
+      description: this.taskDescription(),
+    };
+
+    if (this.isEditMode()) {
+      this.taskSaved.emit(taskInput);
+    } else {
+      this.taskCreated.emit(taskInput);
+      this.taskTitle.set('');
+      this.taskDescription.set('');
+    }
+  }
+
+  cancel() {
+    if (this.isEditMode()) {
+      this.taskEditCancelled.emit();
+    } else {
+      this.isExpanded.set(false);
+      this.taskTitle.set(this.initialTitle());
+      this.taskDescription.set(this.initialDescription());
     }
   }
 }

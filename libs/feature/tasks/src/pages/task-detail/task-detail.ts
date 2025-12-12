@@ -1,13 +1,14 @@
 import { Component, inject, computed, signal } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { DatePipe, CommonModule } from '@angular/common';
 import { TasksService } from '../../services/tasks.service';
+import { CreateTaskComponent } from '../../components/create-task/create-task';
 
 @Component({
   selector: 'tn-task-detail',
   templateUrl: './task-detail.html',
   styleUrl: './task-detail.scss',
-  imports: [DatePipe],
+  imports: [DatePipe, CommonModule, CreateTaskComponent],
 })
 export class TaskDetailComponent {
   private router = inject(Router);
@@ -15,6 +16,7 @@ export class TaskDetailComponent {
   private tasksService = inject(TasksService);
 
   taskId = signal<number | null>(null);
+  isEditMode = signal(false);
 
   // Computed che trova il task dall'id
   task = computed(() => {
@@ -42,18 +44,35 @@ export class TaskDetailComponent {
   toggleTask() {
     const currentTask = this.task();
     if (currentTask) {
-      currentTask.completed = !currentTask.completed;
+      this.tasksService.updateTask(currentTask.id, { 
+        completed: !currentTask.completed 
+      });
     }
   }
 
-  editTask() {
-    // TODO: Implementare la pagina di edit
-    console.log('Edit task:', this.task());
+  startEdit() {
+    this.isEditMode.set(true);
+  }
+
+  saveEdit(taskInput: { title: string; description: string }) {
+    const currentTask = this.task();
+    if (currentTask) {
+      this.tasksService.updateTask(currentTask.id, {
+        title: taskInput.title,
+        description: taskInput.description,
+      });
+      this.isEditMode.set(false);
+    }
+  }
+
+  cancelEdit() {
+    this.isEditMode.set(false);
   }
 
   deleteTask() {
-    if (confirm('Are you sure you want to delete this task?')) {
-      // TODO: Emettere evento per eliminare il task
+    const currentTask = this.task();
+    if (currentTask && confirm('Are you sure you want to delete this task?')) {
+      this.tasksService.deleteTask(currentTask.id);
       this.router.navigate(['/tasks']);
     }
   }
