@@ -1,5 +1,10 @@
 <div class="tasks-container">
-  <h1>My Tasks</h1>
+  <div class="tasks-header">
+    <h1>My Tasks</h1>
+    <button class="debug-btn" (click)="generateRandomTasks()" title="Generate 100 random tasks for debugging">
+      🐛 Debug: 100 Tasks
+    </button>
+  </div>
 
   <!-- Form to create new task -->
   <tn-create-task (taskCreated)="onTaskCreated($event)"></tn-create-task>

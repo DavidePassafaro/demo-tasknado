@@ -17,6 +17,42 @@
   }
 }
 
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+.debug-btn {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 152, 0, 0.3);
+
+  &:hover {
+    background-color: #f57c00;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 /* Form to create task */
 .create-task-form {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
