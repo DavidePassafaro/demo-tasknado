@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
 import { TaskCardComponent } from '../../components/task-card/task-card';
 
@@ -19,7 +20,7 @@ interface TaskInput {
   selector: 'tn-tasks',
   templateUrl: './tasks.html',
   styleUrl: './tasks.scss',
-  imports: [CreateTaskComponent, TaskCardComponent],
+  imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
 })
 export class Tasks {
   tasks: Task[] = [];
