@@ -1,7 +1,11 @@
 <div class="tasks-container">
   <div class="tasks-header">
     <h1>My Tasks</h1>
-    <button class="debug-btn" (click)="generateRandomTasks()" title="Generate 100 random tasks for debugging">
+    <button
+      class="debug-btn"
+      (click)="generateRandomTasks()"
+      title="Generate 100 random tasks for debugging"
+    >
       🐛 Debug: 100 Tasks
     </button>
   </div>
@@ -18,15 +22,15 @@
       <p>You haven't created any tasks yet. Start adding one!</p>
     </div>
     } @else if (tasks.length > 0) {
-    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="200">
+    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="141">
       <div class="tasks-vertical">
-        @for (task of tasks; track task.id) {
-          <tn-task-card 
+        <div *cdkVirtualFor="let task of tasks" class="example-item">
+          <tn-task-card
             [task]="task"
             (taskDeleted)="deleteTask($event)"
             (taskToggled)="toggleTask($event)"
           ></tn-task-card>
-        }
+        </div>
       </div>
     </cdk-virtual-scroll-viewport>
     }
