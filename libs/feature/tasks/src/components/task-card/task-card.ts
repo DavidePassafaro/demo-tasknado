@@ -19,12 +19,19 @@ export class TaskCardComponent {
   task = input.required<Task>();
   taskDeleted = output<number>();
   taskToggled = output<number>();
+  taskSelected = output<Task>();
 
-  onDelete() {
+  onTaskClick() {
+    this.taskSelected.emit(this.task());
+  }
+
+  onDelete(event: Event) {
+    event.stopPropagation();
     this.taskDeleted.emit(this.task().id);
   }
 
-  onToggle() {
+  onToggle(event: Event) {
+    event.stopPropagation();
     this.taskToggled.emit(this.task().id);
   }
 }

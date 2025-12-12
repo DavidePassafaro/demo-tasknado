@@ -1,15 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { Router } from '@angular/router';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
 import { TaskCardComponent } from '../../components/task-card/task-card';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-  createdAt: Date;
-}
+import { TasksService, Task } from '../../services/tasks.service';
 
 interface TaskInput {
   title: string;
@@ -23,7 +17,10 @@ interface TaskInput {
   imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
 })
 export class Tasks {
-  tasks: Task[] = [];
+  private router = inject(Router);
+  private tasksService = inject(TasksService);
+  
+  tasks = computed(() => this.tasksService.tasks());
   nextId = 1;
 
   onTaskCreated(taskInput: TaskInput) {
@@ -34,18 +31,22 @@ export class Tasks {
       completed: false,
       createdAt: new Date(),
     };
-    this.tasks.push(newTask);
+    this.tasksService.addTask(newTask);
   }
 
   deleteTask(id: number) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasksService.deleteTask(id);
   }
 
   toggleTask(id: number) {
-    const task = this.tasks.find((t) => t.id === id);
+    const task = this.tasksService.getTask(id);
     if (task) {
-      task.completed = !task.completed;
+      this.tasksService.updateTask(id, { completed: !task.completed });
     }
+  }
+
+  onTaskSelected(task: Task) {
+    this.router.navigate(['/tasks/', task.id]);
   }
 
   generateRandomTasks() {
@@ -93,7 +94,7 @@ export class Tasks {
         completed: randomCompleted,
         createdAt: new Date(Date.now() - randomDaysAgo * 24 * 60 * 60 * 1000),
       };
-      this.tasks.push(newTask);
+      this.tasksService.addTask(newTask);
     }
   }
 }

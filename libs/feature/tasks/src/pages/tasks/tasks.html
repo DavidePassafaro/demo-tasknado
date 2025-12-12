@@ -15,20 +15,21 @@
 
   <!-- Vertical task list -->
   <div class="tasks-list">
-    <h2>Task List ({{ tasks.length }})</h2>
+    <h2>Task List ({{ tasks().length }})</h2>
 
-    @if (tasks.length === 0) {
+    @if (tasks().length === 0) {
     <div class="no-tasks">
       <p>You haven't created any tasks yet. Start adding one!</p>
     </div>
-    } @else if (tasks.length > 0) {
+    } @else if (tasks().length > 0) {
     <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="141">
       <div class="tasks-vertical">
-        <div *cdkVirtualFor="let task of tasks" class="example-item">
+        <div *cdkVirtualFor="let task of tasks()" class="example-item">
           <tn-task-card
             [task]="task"
             (taskDeleted)="deleteTask($event)"
             (taskToggled)="toggleTask($event)"
+            (taskSelected)="onTaskSelected($event)"
           ></tn-task-card>
         </div>
       </div>
