@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 interface TaskInput {
@@ -15,8 +15,13 @@ interface TaskInput {
 export class CreateTaskComponent {
   taskCreated = output<TaskInput>();
 
+  isExpanded = signal(false);
   taskTitle = '';
   taskDescription = '';
+
+  toggleExpanded() {
+    this.isExpanded.update(value => !value);
+  }
 
   addTask() {
     if (this.taskTitle.trim()) {

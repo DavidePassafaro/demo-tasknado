@@ -1,29 +1,43 @@
-<div class="create-task-form">
-  <h2>Create a new task</h2>
-  <form (ngSubmit)="addTask()" class="task-form">
-    <div class="form-group">
-      <label for="taskTitle">Task title *</label>
-      <input
-        id="taskTitle"
-        type="text"
-        [(ngModel)]="taskTitle"
-        name="taskTitle"
-        placeholder="Enter the task title"
-        required
-      />
-    </div>
+<div class="create-task-form" [class.expanded]="isExpanded()">
+  <div class="create-task-header">
+    <h2>Create a new task</h2>
+    <button 
+      type="button"
+      class="toggle-btn"
+      (click)="toggleExpanded()"
+      [attr.aria-expanded]="isExpanded()"
+      title="Toggle form"
+    >
+      <span class="toggle-icon">{{ isExpanded() ? '−' : '+' }}</span>
+    </button>
+  </div>
 
-    <div class="form-group">
-      <label for="taskDescription">Description</label>
-      <textarea
-        id="taskDescription"
-        [(ngModel)]="taskDescription"
-        name="taskDescription"
-        placeholder="Enter a description (optional)"
-        rows="3"
-      ></textarea>
-    </div>
+  @if (isExpanded()) {
+    <form (ngSubmit)="addTask()" class="task-form">
+      <div class="form-group">
+        <label for="taskTitle">Task title *</label>
+        <input
+          id="taskTitle"
+          type="text"
+          [(ngModel)]="taskTitle"
+          name="taskTitle"
+          placeholder="Enter the task title"
+          required
+        />
+      </div>
 
-    <button type="submit" class="submit-btn">Add Task</button>
-  </form>
+      <div class="form-group">
+        <label for="taskDescription">Description</label>
+        <textarea
+          id="taskDescription"
+          [(ngModel)]="taskDescription"
+          name="taskDescription"
+          placeholder="Enter a description (optional)"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">Add Task</button>
+    </form>
+  }
 </div>
