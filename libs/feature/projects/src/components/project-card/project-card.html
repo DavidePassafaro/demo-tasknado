@@ -1,0 +1,23 @@
+<div
+  class="project-item"
+  (click)="onProjectClick()"
+  (keydown.enter)="onProjectClick()"
+  (keydown.space)="onProjectClick()"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="'View details for project: ' + project().name"
+>
+  <div class="project-header">
+    <div class="project-title-wrapper">
+      <h3 class="project-title">{{ project().name }}</h3>
+    </div>
+
+    <button (click)="onDelete($event)" class="delete-btn" title="Delete project">×</button>
+  </div>
+
+  @if (project().description) {
+  <p class="project-description">{{ project().description }}</p>
+  } @else {
+  <p class="project-description empty">No description provided</p>
+  }
+</div>

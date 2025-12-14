@@ -1,1 +1,31 @@
-<p>Projects works!</p>
+<div class="projects-container">
+  <div class="projects-header">
+    <h1>Projects</h1>
+  </div>
+
+  <!-- Form to create new project -->
+  <tn-create-project (projectCreated)="onProjectCreated($event)"></tn-create-project>
+
+  <!-- Vertical project list -->
+  <div class="projects-list">
+    <h2>Project List ({{ projects().length }})</h2>
+
+    @if (projects().length === 0) {
+    <div class="no-projects">
+      <p>You haven't created any projects yet. Start adding one!</p>
+    </div>
+    } @else if (projects().length > 0) {
+    <cdk-virtual-scroll-viewport class="projects-virtual-scroll" itemSize="180">
+      <div class="projects-vertical">
+        <div *cdkVirtualFor="let project of projects()" class="example-item">
+          <tn-project-card
+            [project]="project"
+            (projectDeleted)="deleteProject($event)"
+            (projectSelected)="onProjectSelected($event)"
+          ></tn-project-card>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+    }
+  </div>
+</div>

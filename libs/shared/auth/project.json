@@ -2,7 +2,9 @@
   "name": "feature-auth",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/auth/src",
-  "prefix": "lib",
+  "prefix": "tn",
+  "projectType": "library",
+  "tags": ["type:shared", "shared"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
@@ -15,6 +17,5 @@
     "lint": {
       "executor": "@nx/eslint:lint"
     }
-  },
-  "tags": ["type:auth", "scope:shared"]
+  }
 }

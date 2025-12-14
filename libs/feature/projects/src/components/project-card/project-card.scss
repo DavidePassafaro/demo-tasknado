@@ -1,0 +1,96 @@
+.project-item {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+
+  &:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.project-title-wrapper {
+  flex: 1;
+}
+
+.project-title {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.project-description {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0.5rem 0 0 0;
+  word-break: break-word;
+
+  &.empty {
+    color: #999;
+    font-style: italic;
+  }
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 1.75rem;
+  cursor: pointer;
+  padding: 0;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #fee;
+    color: #e53935;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f0f0f0;
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.project-date {
+  display: flex;
+  align-items: center;
+}

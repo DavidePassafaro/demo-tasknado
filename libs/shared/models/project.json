@@ -2,9 +2,9 @@
   "name": "models",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/models/src",
-  "prefix": "lib",
+  "prefix": "tn",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:shared", "shared"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
