@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { isUserLogged } from '@shared/auth';
 
 export const appRoutes: Route[] = [
   {
@@ -21,6 +22,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
       },
     ],
+    canActivate: [isUserLogged],
   },
   {
     path: '**',
