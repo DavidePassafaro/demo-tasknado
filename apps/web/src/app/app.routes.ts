@@ -7,13 +7,20 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@feature/home').then((m) => m.HomePage),
   },
   {
-    path: 'tasks',
-    loadChildren: () => import('@feature/tasks').then((m) => m.tasksRoutes),
-  },
-  {
-    path: '404',
-    pathMatch: 'full',
-    loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
+    path: '',
+    loadComponent: () =>
+      import('./core/framework/framework.component').then((m) => m.FrameworkComponent),
+    children: [
+      {
+        path: 'tasks',
+        loadChildren: () => import('@feature/tasks').then((m) => m.tasksRoutes),
+      },
+      {
+        path: '404',
+        pathMatch: 'full',
+        loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
+      },
+    ],
   },
   {
     path: '**',
