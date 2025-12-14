@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { PrimaryButtonComponent, PrimaryCardComponent, BenefitCardComponent } from '@shared/ui';
 import { LineChartComponent } from '@shared/ui/charts';
 import type { LineChartData } from '@shared/ui/charts';
-import { AuthService } from '@shared/auth';
+import { AuthService } from '@feature/auth';
 
 interface Feature {
   icon: string;

@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { isUserLogged } from '@shared/auth';
+import { isUserLogged } from '@feature/auth';
 
 export const appRoutes: Route[] = [
   {
