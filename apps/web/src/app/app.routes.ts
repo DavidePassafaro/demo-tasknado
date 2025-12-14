@@ -1,11 +1,12 @@
 import { Route } from '@angular/router';
-import { isUserLogged } from '@feature/auth';
+import { isUserNotLogged, isUserLogged } from '@feature/auth';
 
 export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
     loadComponent: () => import('@feature/home').then((m) => m.HomePage),
+    canActivate: [isUserNotLogged],
   },
   {
     path: '',

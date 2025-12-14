@@ -13,3 +13,14 @@ export const isUserLogged: CanActivateFn = () => {
     })
   );
 };
+
+export const isUserNotLogged: CanActivateFn = () => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  return authService.getCurrentUser$().pipe(
+    map((user) => !user),
+    tap((isLoggedIn) => {
+      if (isLoggedIn) router.navigate(['/projects']);
+    })
+  );
+};
