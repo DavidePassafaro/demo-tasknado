@@ -28,18 +28,13 @@ export class AuthService {
   // Signal for error state
   error = signal<string | null>(null);
 
-  currentUser$: Observable<AuthUser | null> = toObservable(this.isLoading).pipe(
-    switchMap((isLoading) =>
-      isLoading
-        ? toObservable(this.currentUser, { injector: this.injector }).pipe(skip(1))
-        : of(this.currentUser())
-    )
-  );
-
   constructor() {
     this.getCurrentUser();
   }
 
+  /**
+   * Fetch the current authenticated user from the backend
+   */
   getCurrentUser(): void {
     this.isLoading.set(true);
 
@@ -64,5 +59,18 @@ export class AuthService {
    */
   loginWithGoogle(): void {
     window.location.href = `${BASE_API_URL}auth/google`;
+  }
+
+  /**
+   * Get an observable of the current user, waiting for loading to complete if necessary
+   */
+  getCurrentUser$(): Observable<AuthUser | null> {
+    return toObservable(this.isLoading, { injector: this.injector }).pipe(
+      switchMap((isLoading) =>
+        isLoading
+          ? toObservable(this.currentUser, { injector: this.injector }).pipe(skip(1))
+          : of(this.currentUser())
+      )
+    );
   }
 }

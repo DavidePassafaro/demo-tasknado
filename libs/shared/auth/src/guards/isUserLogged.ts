@@ -6,7 +6,7 @@ import { map, tap } from 'rxjs';
 export const isUserLogged: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  return authService.currentUser$.pipe(
+  return authService.getCurrentUser$().pipe(
     map((user) => !!user),
     tap((isLoggedIn) => {
       if (!isLoggedIn) router.navigate(['/']);
