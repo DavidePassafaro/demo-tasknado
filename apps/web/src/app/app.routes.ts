@@ -13,6 +13,10 @@ export const appRoutes: Route[] = [
       import('./core/framework/framework.component').then((m) => m.FrameworkComponent),
     children: [
       {
+        path: 'projects',
+        loadChildren: () => import('@feature/projects').then((m) => m.projectsRoutes),
+      },
+      {
         path: 'tasks',
         loadChildren: () => import('@feature/tasks').then((m) => m.tasksRoutes),
       },
