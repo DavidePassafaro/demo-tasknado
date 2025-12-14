@@ -2,15 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, Injector, signal } from '@angular/core';
 import { catchError, Observable, of, skip, switchMap, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { User } from '@shared/models';
 
 const BASE_API_URL = 'http://localhost:4000/';
-
-export interface AuthUser {
-  id: string;
-  email: string;
-  name: string;
-  picture?: string;
-}
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +14,7 @@ export class AuthService {
   private readonly injector = inject(Injector);
 
   // Signal for current user
-  currentUser = signal<AuthUser | null>(null);
+  currentUser = signal<User | null>(null);
 
   // Signal for loading state
   isLoading = signal(false);
@@ -39,7 +33,7 @@ export class AuthService {
     this.isLoading.set(true);
 
     this.http
-      .get<AuthUser>(`${BASE_API_URL}api/user/current`, { withCredentials: true })
+      .get<User>(`${BASE_API_URL}api/user/current`, { withCredentials: true })
       .pipe(
         tap((user) => {
           this.currentUser.set(user);
@@ -64,7 +58,7 @@ export class AuthService {
   /**
    * Get an observable of the current user, waiting for loading to complete if necessary
    */
-  getCurrentUser$(): Observable<AuthUser | null> {
+  getCurrentUser$(): Observable<User | null> {
     return toObservable(this.isLoading, { injector: this.injector }).pipe(
       switchMap((isLoading) =>
         isLoading
