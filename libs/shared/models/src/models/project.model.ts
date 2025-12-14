@@ -7,5 +7,6 @@ export interface Project {
   description?: string;
   color?: string;
   createdAt: Date;
+  updatedAt: Date;
   tasks: Task[];
 }

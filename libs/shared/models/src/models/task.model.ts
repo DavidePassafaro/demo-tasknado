@@ -4,6 +4,7 @@ export interface Task {
   description?: string;
   status: string;
   createdAt: Date;
+  updatedAt: Date;
   dueDate?: Date;
   projectId: number;
 }

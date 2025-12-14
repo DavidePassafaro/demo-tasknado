@@ -24,7 +24,7 @@ export class ProjectsService {
       });
   }
 
-  addProject(project: Omit<Project, 'id' | 'createdAt' | 'creatorId' | 'tasks'>) {
+  addProject(project: Partial<Project>) {
     this.http
       .post<Project>(`${BASE_API_URL}api/projects`, project, { withCredentials: true })
       .subscribe((response) => {

@@ -26,7 +26,7 @@ export class Projects {
   nextId = 1;
 
   onProjectCreated(projectInput: ProjectInput) {
-    const newProject: Omit<Project, 'id' | 'createdAt' | 'creatorId' | 'tasks'> = {
+    const newProject: Partial<Project> = {
       name: projectInput.name,
       description: projectInput.description,
     };
