@@ -74,6 +74,6 @@ export class HomePage {
   };
 
   loginWithGoogle() {
-    this.authService.loginWithGoogle().subscribe();
+    this.authService.loginWithGoogle();
   }
 }
