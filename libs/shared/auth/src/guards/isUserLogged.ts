@@ -19,8 +19,8 @@ export const isUserNotLogged: CanActivateFn = () => {
   const router = inject(Router);
   return authService.getCurrentUser$().pipe(
     map((user) => !user),
-    tap((isLoggedIn) => {
-      if (isLoggedIn) router.navigate(['/projects']);
+    tap((isNotLoggedIn) => {
+      if (!isNotLoggedIn) router.navigate(['/projects']);
     })
   );
 };

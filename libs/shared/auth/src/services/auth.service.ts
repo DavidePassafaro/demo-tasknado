@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, Injector, signal } from '@angular/core';
-import { catchError, Observable, of, skip, tap } from 'rxjs';
+import { catchError, filter, map, Observable, of, skip, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { User } from '@shared/models';
 
@@ -60,7 +60,10 @@ export class AuthService {
    */
   getCurrentUser$(): Observable<User | null> {
     return this.isLoading()
-      ? toObservable(this.currentUser, { injector: this.injector }).pipe(skip(1))
+      ? toObservable(this.isLoading, { injector: this.injector }).pipe(
+          filter((isLoading) => !isLoading),
+          map(() => this.currentUser())
+        )
       : of(this.currentUser());
   }
 }
