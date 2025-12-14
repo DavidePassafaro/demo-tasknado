@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { PrimaryButtonComponent, PrimaryCardComponent, BenefitCardComponent } from '@shared/ui';
 import { LineChartComponent } from '@shared/ui/charts';
 import type { LineChartData } from '@shared/ui/charts';
+import { AuthService } from '@shared/auth';
 
 interface Feature {
   icon: string;
@@ -17,6 +18,12 @@ interface Feature {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {
+  private authService = inject(AuthService);
+
+  // Expose auth service signals to template
+  isLoading = this.authService.isLoading;
+  error = this.authService.error;
+
   features: Feature[] = [
     {
       icon: '📋',
@@ -65,4 +72,8 @@ export class HomePage {
       },
     ],
   };
+
+  loginWithGoogle() {
+    this.authService.loginWithGoogle().subscribe();
+  }
 }
