@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 interface ProjectInput {
   name: string;
   description: string;
+  color?: string;
 }
 
 @Component({
@@ -14,6 +15,9 @@ interface ProjectInput {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateProjectComponent {
+  // Color palette
+  availableColors = ['#3b82f6', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
+
   // Inputs
   initialName = input('');
   initialDescription = input('');
@@ -27,6 +31,7 @@ export class CreateProjectComponent {
   isExpanded = signal(false);
   projectName = signal('');
   projectDescription = signal('');
+  selectedColor = signal(this.availableColors[0]);
 
   constructor() {
     // Effetto per aggiornare i campi quando gli input cambiano
@@ -34,7 +39,7 @@ export class CreateProjectComponent {
       const name = this.initialName();
       const description = this.initialDescription();
       const editMode = this.isEditMode();
-      
+
       if (editMode) {
         this.projectName.set(name);
         this.projectDescription.set(description);
@@ -48,7 +53,7 @@ export class CreateProjectComponent {
   }
 
   toggleExpanded() {
-    this.isExpanded.update(value => !value);
+    this.isExpanded.update((value) => !value);
   }
 
   addProject() {
@@ -61,6 +66,7 @@ export class CreateProjectComponent {
     const projectInput: ProjectInput = {
       name,
       description: this.projectDescription(),
+      color: this.selectedColor(),
     };
 
     if (this.isEditMode()) {

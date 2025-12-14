@@ -70,7 +70,7 @@
 .form-group {
   margin-bottom: 1.5rem;
 
-  label {
+  label, span {
     display: block;
     color: white;
     font-weight: 500;
@@ -103,6 +103,38 @@
   textarea {
     resize: vertical;
     min-height: 80px;
+  }
+}
+
+.color-selector {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
+}
+
+.color-dot {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &.selected {
+    border-color: white;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 

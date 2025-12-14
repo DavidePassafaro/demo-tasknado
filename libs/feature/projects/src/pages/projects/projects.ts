@@ -9,6 +9,7 @@ import { Project } from '@shared/models';
 interface ProjectInput {
   name: string;
   description: string;
+  color?: string;
 }
 
 @Component({
@@ -29,6 +30,7 @@ export class Projects {
     const newProject: Partial<Project> = {
       name: projectInput.name,
       description: projectInput.description,
+      color: projectInput.color,
     };
     this.projectsService.addProject(newProject);
   }

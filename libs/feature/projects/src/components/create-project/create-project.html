@@ -41,6 +41,24 @@
       ></textarea>
     </div>
 
+    <div class="form-group">
+      <span>Project color</span>
+      
+      <div class="color-selector">
+        @for (color of availableColors; track color) {
+        <button
+          type="button"
+          class="color-dot"
+          [class.selected]="selectedColor() === color"
+          [style.background-color]="color"
+          (click)="selectedColor.set(color)"
+          [attr.title]="color"
+          [attr.aria-label]="'Select color ' + color"
+        ></button>
+        }
+      </div>
+    </div>
+
     <div class="form-actions">
       @if (isEditMode()) {
       <button type="button" class="cancel-btn" (click)="cancel()">Cancel</button>
