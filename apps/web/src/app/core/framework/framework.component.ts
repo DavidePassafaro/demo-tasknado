@@ -11,7 +11,6 @@ import { FooterComponent, HeaderComponent } from '@shared/ui';
 })
 export class FrameworkComponent {
   protected readonly navItems = [
-    { label: 'Home', link: '/' },
     { label: 'Projects', link: '/projects' }
   ];
 
