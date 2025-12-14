@@ -8,11 +8,11 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@feature/auth": ["libs/feature/auth/src/index.ts"],
       "@feature/home": ["libs/feature/home/src/index.ts"],
       "@feature/projects": ["libs/feature/projects/src/index.ts"],
       "@feature/tasks": ["libs/feature/tasks/src/index.ts"],
       "@feature/not-found": ["libs/feature/not-found/src/index.ts"],
+      "@shared/auth": ["libs/shared/auth/src/index.ts"],
       "@shared/ui": ["libs/shared/ui/src/index.ts"],
       "@shared/ui/charts": ["libs/shared/ui/src/components/charts/index.ts"],
     }
