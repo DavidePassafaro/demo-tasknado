@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   /**
-   * Fetch the current authenticated user from the backend
+   * Fetches the current authenticated user from the backend
    */
   getCurrentUser(): void {
     this.isLoading.set(true);
@@ -49,14 +49,14 @@ export class AuthService {
   }
 
   /**
-   * Initiate Google authentication flow
+   * Initiates Google authentication flow
    */
   loginWithGoogle(): void {
     window.location.href = `${BASE_API_URL}auth/google`;
   }
 
   /**
-   * Get an observable of the current user, waiting for loading to complete if necessary
+   * Gets an observable of the current user, waiting for loading to complete if necessary
    */
   getCurrentUser$(): Observable<User | null> {
     return this.isLoading()
