@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { D } from '@angular/cdk/keycodes';
+import { ChangeDetectionStrategy, Component, input, numberAttribute } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 export interface FooterLink {
@@ -20,5 +21,6 @@ export interface FooterSection {
 })
 export class FooterComponent {
   sections = input<FooterSection[]>([]);
+  legalYear = input(new Date().getFullYear(), { transform: numberAttribute });
   companyName = input<string>();
 }
