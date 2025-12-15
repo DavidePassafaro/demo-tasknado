@@ -21,7 +21,7 @@ const projectsResolver: ResolveFn<Project[]> = () => {
 const projectTasksResolver: ResolveFn<Task[]> = (route: ActivatedRouteSnapshot) => {
   const tasksService = inject(TasksService);
   const projectId = route.paramMap.get('id') || '';
-  return tasksService.getTasks(+projectId);
+  return tasksService.getTasksByProjectId(+projectId);
 };
 
 export const projectsRoutes: Route[] = [

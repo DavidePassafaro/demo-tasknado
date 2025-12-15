@@ -13,19 +13,6 @@ export class TasksService {
   tasks = this.#tasks.asReadonly();
 
   /**
-   * Fetches tasks for a specific project from the backend
-   * @param projectId The ID of the project
-   * @returns An array of tasks for the specified project
-   */
-  getTasks(projectId: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}api/tasks/project/${projectId}`).pipe(
-      tap((response) => {
-        this.#tasks.set(response);
-      })
-    );
-  }
-
-  /**
    * Adds a new task to the backend
    * @param task The partial task data to add
    */
@@ -49,9 +36,9 @@ export class TasksService {
    * @returns An array of tasks for the specified project
    */
   getTasksByProjectId(projectId: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.apiUrl}api/tasks/project/${projectId}`, {
-      withCredentials: true,
-    });
+    return this.http
+      .get<Task[]>(`${this.apiUrl}api/tasks/project/${projectId}`)
+      .pipe(tap((response) => this.#tasks.set(response)));
   }
 
   /**
