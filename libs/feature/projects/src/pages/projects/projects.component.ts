@@ -1,7 +1,7 @@
 import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router } from '@angular/router';
-import { CreateProjectComponent } from '../../components/create-project/create-project.component';
+import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { ProjectCardComponent } from '../../components/project-card/project-card.component';
 import { ProjectsService } from '../../services/projects.service';
 import { Project } from '@shared/models';
@@ -16,7 +16,7 @@ interface ProjectInput {
   selector: 'tn-projects',
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
-  imports: [CreateProjectComponent, ProjectCardComponent, ScrollingModule],
+  imports: [CreateEntityComponent, ProjectCardComponent, ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Projects {

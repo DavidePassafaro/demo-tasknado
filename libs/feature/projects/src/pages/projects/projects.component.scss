@@ -2,7 +2,9 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  position: relative;
 
   h1 {
     color: #333;
@@ -14,6 +16,101 @@
     color: #555;
     margin-bottom: 1rem;
     font-size: 1.5rem;
+  }
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  h1 {
+    margin-bottom: 0;
+  }
+}
+
+// Create button in header
+.create-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Floating panel overlay - expands from button
+.floating-panel {
+  position: fixed;
+  top: 0;
+  right: 2rem;
+  background: transparent;
+  z-index: 1000;
+  max-width: 500px;
+  width: 90vw;
+  animation: expandFromButton 0.3s ease;
+  padding: 0;
+  padding-top: 3rem;
+  max-height: 90vh;
+  overflow-y: auto;
+
+  @keyframes expandFromButton {
+    from {
+      opacity: 0;
+      max-width: 150px;
+    }
+    to {
+      opacity: 1;
+      max-width: 500px;
+    }
+  }
+}
+
+.floating-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 1rem;
+
+  h2 {
+    margin: 0;
+    color: #333;
+  }
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #333;
   }
 }
 
@@ -72,7 +169,7 @@
 }
 
 .projects-virtual-scroll {
-  height: 600px;
+  height: 750px;
   width: 100%;
   border-radius: 10px;
 }
@@ -83,6 +180,10 @@
   padding-top: 5px;
 }
 
-.example-item {
+.project-item {
   padding: 0;
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
 }

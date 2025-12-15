@@ -1,10 +1,13 @@
 <div class="projects-container">
   <div class="projects-header">
     <h1>Projects</h1>
-  </div>
 
-  <!-- Form to create new project -->
-  <tn-create-project (projectCreated)="onProjectCreated($event)"/>
+    <tn-create-entity
+      entityName="Project"
+      [includeColors]="true"
+      (entityCreated)="onProjectCreated($event)"
+    />
+  </div>
 
   <!-- Vertical project list -->
   <div class="projects-list">
@@ -15,9 +18,12 @@
       <p>You haven't created any projects yet. Start adding one!</p>
     </div>
     } @else if (projects().length > 0) {
-    <cdk-virtual-scroll-viewport class="projects-virtual-scroll" itemSize="118.5">
+    <cdk-virtual-scroll-viewport class="projects-virtual-scroll" itemSize="134.5">
       <div class="projects-vertical">
-        <div *cdkVirtualFor="let project of projects(); trackBy: trackByProjectId" class="example-item">
+        <div
+          *cdkVirtualFor="let project of projects(); trackBy: trackByProjectId"
+          class="project-item"
+        >
           <tn-project-card
             [project]="project"
             (projectDeleted)="deleteProject($event)"

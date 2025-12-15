@@ -1,0 +1,68 @@
+<div class="create-entity-container" [class.expanded]="isExpanded()">
+  <!-- Button -->
+  <button class="create-entity-btn" (click)="toggle()" [attr.aria-expanded]="isExpanded()">
+    + Create {{ entityName() }}
+  </button>
+
+  <!-- Expanded content -->
+  @if (isExpanded()) {
+  <div class="expanded-content">
+    <form (ngSubmit)="create()" class="entity-form">
+      <!-- Name field -->
+      <div class="form-group">
+        <label for="name">{{ entityName() }} Name</label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="Enter name..."
+          [(ngModel)]="name"
+          (ngModelChange)="name.set($event)"
+          name="name"
+          required
+        />
+      </div>
+
+      <!-- Description field -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          placeholder="Enter description..."
+          [(ngModel)]="description"
+          (ngModelChange)="description.set($event)"
+          name="description"
+          rows="4"
+        ></textarea>
+      </div>
+
+      <!-- Color picker (if enabled) -->
+      @if (includeColors()) {
+      <div class="form-group">
+        <span>Color</span>
+        <div class="color-picker">
+          @for (colorOption of colors; track colorOption) {
+          <button
+            type="button"
+            class="color-option"
+            [style.background-color]="colorOption"
+            [class.selected]="color() === colorOption"
+            (click)="color.set(colorOption)"
+            [attr.aria-label]="'Color ' + colorOption"
+          ></button>
+          }
+        </div>
+      </div>
+      }
+
+      <!-- Buttons -->
+      <div class="form-actions">
+        <button type="button" class="btn-cancel" (click)="close()">Cancel</button>
+        <button type="submit" class="btn-submit" [disabled]="!name().trim()">
+          Create {{ entityName() }}
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+</div>
