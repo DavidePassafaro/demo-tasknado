@@ -12,12 +12,12 @@ interface Feature {
 
 @Component({
   selector: 'tn-home',
-  templateUrl: './home.html',
-  styleUrl: './home.scss',
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
   imports: [PrimaryButtonComponent, PrimaryCardComponent, BenefitCardComponent, LineChartComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
+export class HomeComponent {
   private authService = inject(AuthService);
 
   // Expose auth service signals to template
@@ -73,7 +73,10 @@ export class HomePage {
     ],
   };
 
-  loginWithGoogle() {
+  /**
+   * Initiates login with Google OAuth
+   */
+  protected loginWithGoogle(): void {
     this.authService.loginWithGoogle();
   }
 }

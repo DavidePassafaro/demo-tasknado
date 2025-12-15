@@ -5,7 +5,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('@feature/home').then((m) => m.HomePage),
+    loadChildren: () => import('@feature/home').then((m) => m.homeRoutes),
     canActivate: [isUserNotLogged],
   },
   {
