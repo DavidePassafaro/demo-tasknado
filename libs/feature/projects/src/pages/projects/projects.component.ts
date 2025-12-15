@@ -54,4 +54,14 @@ export class Projects {
   protected onProjectSelected(project: Project): void {
     this.router.navigate(['/projects/', project.id]);
   }
+
+  /**
+   * Track by function for virtual scroll optimization
+   * @param index The index of the project
+   * @param project The project object
+   * @returns The project ID for tracking
+   */
+  protected trackByProjectId(index: number, project: Project): number {
+    return project.id;
+  }
 }

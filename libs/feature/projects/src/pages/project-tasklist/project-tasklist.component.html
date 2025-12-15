@@ -15,9 +15,9 @@
       <p>You haven't created any tasks yet. Start adding one!</p>
     </div>
     } @else if (tasks().length > 0) {
-    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="141">
+    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="105">
       <div class="tasks-vertical">
-        <div *cdkVirtualFor="let task of tasks()" class="example-item">
+        <div *cdkVirtualFor="let task of tasks(); trackBy: trackByTaskId" class="example-item">
           <tn-task-card
             [task]="task"
             (taskDeleted)="deleteTask($event)"

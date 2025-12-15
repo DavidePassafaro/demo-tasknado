@@ -78,6 +78,16 @@ export class ProjectTasklistComponent {
   }
 
   /**
+   * Track by function for virtual scroll optimization
+   * @param index The index of the task
+   * @param task The task object
+   * @returns The task ID for tracking
+   */
+  protected trackByTaskId(index: number, task: Task): number {
+    return task.id;
+  }
+
+  /**
    * Retrieves the current project based on the projectId signal
    * @returns The current Project or null if not found
    */

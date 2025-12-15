@@ -15,9 +15,9 @@
       <p>You haven't created any projects yet. Start adding one!</p>
     </div>
     } @else if (projects().length > 0) {
-    <cdk-virtual-scroll-viewport class="projects-virtual-scroll" itemSize="180">
+    <cdk-virtual-scroll-viewport class="projects-virtual-scroll" itemSize="118.5">
       <div class="projects-vertical">
-        <div *cdkVirtualFor="let project of projects()" class="example-item">
+        <div *cdkVirtualFor="let project of projects(); trackBy: trackByProjectId" class="example-item">
           <tn-project-card
             [project]="project"
             (projectDeleted)="deleteProject($event)"
