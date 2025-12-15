@@ -1,8 +1,8 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
-import { TasksService } from '../../services/tasks.service';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'tn-task-detail',
@@ -29,7 +29,7 @@ export class TaskDetailComponent {
 
   constructor() {
     // Leggi l'id dai route params all'inizializzazione
-    const idParam = this.route.snapshot.paramMap.get('id');
+    const idParam = this.route.snapshot.paramMap.get('taskId');
     if (idParam) {
       const taskId = parseInt(idParam, 10);
       if (!isNaN(taskId)) {
@@ -39,7 +39,7 @@ export class TaskDetailComponent {
   }
 
   goBack() {
-    this.router.navigate(['/tasks']);
+    this.router.navigate(['/projects', this.route.snapshot.paramMap.get('id')]);
   }
 
   toggleTask() {

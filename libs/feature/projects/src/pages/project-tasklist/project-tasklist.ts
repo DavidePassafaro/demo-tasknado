@@ -16,7 +16,6 @@ interface TaskInput {
   templateUrl: './project-tasklist.html',
   styleUrl: './project-tasklist.scss',
   imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
-  providers: [TasksService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectTasklistComponent {
@@ -66,6 +65,6 @@ export class ProjectTasklistComponent {
   }
 
   onTaskSelected(task: Task) {
-    this.router.navigate(['/tasks/', task.id]);
+    this.router.navigate(['/projects', this.projectId(), 'task', task.id]);
   }
 }

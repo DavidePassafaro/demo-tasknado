@@ -13,7 +13,9 @@ export interface Task {
   projectId?: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class TasksService {
   private readonly http = inject(HttpClient);
 
