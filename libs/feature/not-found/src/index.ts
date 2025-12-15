@@ -1,1 +1,1 @@
-export * from './pages/not-found/not-found';
+export * from './pages/not-found.routes';

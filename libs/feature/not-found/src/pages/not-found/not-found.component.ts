@@ -4,9 +4,9 @@ import { PrimaryButtonComponent } from '@shared/ui';
 
 @Component({
   selector: 'tn-not-found',
-  templateUrl: './not-found.html',
-  styleUrl: './not-found.scss',
+  templateUrl: './not-found.component.html',
+  styleUrl: './not-found.component.scss',
   imports: [RouterModule, PrimaryButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotFoundPage {}
+export class NotFoundComponent {}

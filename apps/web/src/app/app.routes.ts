@@ -20,7 +20,7 @@ export const appRoutes: Route[] = [
       {
         path: '404',
         pathMatch: 'full',
-        loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
+        loadChildren: () => import('@feature/not-found').then((m) => m.notFoundRoutes),
       },
     ],
     canActivate: [isUserLogged],
