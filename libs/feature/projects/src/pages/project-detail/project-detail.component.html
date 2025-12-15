@@ -38,9 +38,11 @@
 
       <div class="project-actions">
         <button class="action-btn edit-btn" (click)="startEdit()">✎ Edit</button>
-        <a routerLink="/projects/{{ project()!.id }}/tasks" class="action-btn view-tasks-btn">
+
+        <a routerLink="/projects/{{ project()!.id }}" class="action-btn view-tasks-btn">
           📋 View Tasks
         </a>
+
         <button class="action-btn delete-btn" (click)="deleteProject()">🗑 Delete</button>
       </div>
     </div>

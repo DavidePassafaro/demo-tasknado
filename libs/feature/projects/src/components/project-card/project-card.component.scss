@@ -30,6 +30,35 @@
   flex: 1;
 }
 
+.project-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.detail-btn {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
 .project-color {
   display: inline-block;
   width: 12px;

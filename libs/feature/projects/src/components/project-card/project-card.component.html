@@ -15,7 +15,17 @@
       </h3>
     </div>
 
-    <tn-delete-button (deleted)="onDelete()" />
+    <div class="project-actions">
+      <a
+        [routerLink]="['/projects', project().id, 'detail']"
+        class="detail-btn"
+        title="View project details"
+        (click)="$event.stopPropagation()"
+        >ℹ️</a
+      >
+
+      <tn-delete-button (deleted)="onDelete()" />
+    </div>
   </div>
 
   @if (project().description) {

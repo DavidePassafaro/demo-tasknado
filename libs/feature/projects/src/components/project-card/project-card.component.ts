@@ -1,4 +1,5 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Project } from '@shared/models';
 import { DeleteButtonComponent } from '@shared/ui';
 
@@ -6,7 +7,7 @@ import { DeleteButtonComponent } from '@shared/ui';
   selector: 'tn-project-card',
   templateUrl: './project-card.component.html',
   styleUrl: './project-card.component.scss',
-  imports: [DeleteButtonComponent],
+  imports: [DeleteButtonComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent {
