@@ -10,7 +10,10 @@ import { FooterComponent, FooterSection, HeaderComponent, NavItem } from '@share
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrameworkComponent {
-  protected readonly navItems: NavItem[] = [{ label: 'Projects', link: '/projects' }];
+  protected readonly navItems: NavItem[] = [
+    { label: 'Dashboard', link: '/dashboard' },
+    { label: 'Projects', link: '/projects' },
+  ];
 
   protected readonly footerSections: FooterSection[] = [
     {
