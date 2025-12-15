@@ -11,7 +11,7 @@ export const appRoutes: Route[] = [
   {
     path: '',
     loadComponent: () =>
-      import('./core/framework/framework.component').then((m) => m.FrameworkComponent),
+      import('./components/core/framework/framework.component').then((m) => m.FrameworkComponent),
     children: [
       {
         path: 'projects',
