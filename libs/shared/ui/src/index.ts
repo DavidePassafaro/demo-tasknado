@@ -1,7 +1,7 @@
-export * from './components/core/footer/footer.component';
-export * from './components/core/footer/footer.model';
-export * from './components/core/header/header.component';
-export * from './components/core/header/header.model';
+export * from './components/layout/footer/footer.component';
+export * from './components/layout/footer/footer.model';
+export * from './components/layout/header/header.component';
+export * from './components/layout/header/header.model';
 
 export * from './components/buttons/primary-button/primary-button.component';
 export * from './components/buttons/delete-button/delete-button.component';

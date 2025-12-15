@@ -9,6 +9,7 @@
     "baseUrl": ".",
     "paths": {
       "@feature/home": ["libs/feature/home/src/index.ts"],
+      "@feature/dashboard": ["libs/feature/dashboard/src/index.ts"],
       "@feature/projects": ["libs/feature/projects/src/index.ts"],
       "@feature/not-found": ["libs/feature/not-found/src/index.ts"],
       "@shared/auth": ["libs/shared/auth/src/index.ts"],

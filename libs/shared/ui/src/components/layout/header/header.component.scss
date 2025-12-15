@@ -59,6 +59,7 @@ $transition-time: 0.3s;
       max-height: 0;
       overflow: hidden;
       transition: max-height $transition-time ease-in-out;
+      z-index: 1;
 
       &--open {
         max-height: 400px;
@@ -99,7 +100,11 @@ $transition-time: 0.3s;
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+        background: linear-gradient(
+          135deg,
+          rgba(102, 126, 234, 0.15) 0%,
+          rgba(118, 75, 162, 0.15) 100%
+        );
         opacity: 0;
         transition: opacity $transition-time ease;
       }

@@ -7,7 +7,7 @@ import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { BASE_API_URL } from '@shared/models';
-import { credentialsInterceptor } from './core/interceptors/http.interceptor';
+import { credentialsInterceptor } from '@shared/auth';
 
 export const appConfig: ApplicationConfig = {
   providers: [
