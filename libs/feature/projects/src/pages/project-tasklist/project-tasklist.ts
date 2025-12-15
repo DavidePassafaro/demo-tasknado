@@ -3,8 +3,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateTaskComponent } from '../../components/create-task/create-task';
 import { TaskCardComponent } from '../../components/task-card/task-card';
-import { TasksService, Task } from '../../services/tasks.service';
+import { TasksService } from '../../services/tasks.service';
 import { ProjectsService } from '../../services/projects.service';
+import { Task } from '@shared/models';
 
 interface TaskInput {
   title: string;
@@ -38,13 +39,6 @@ export class ProjectTasklistComponent {
   tasks = computed(() => this.tasksService.tasks());
   nextId = 1;
 
-  constructor() {
-    const projectId = this.projectId();
-    if (projectId) {
-      this.tasksService.getTasks(projectId);
-    }
-  }
-
   onTaskCreated(taskInput: TaskInput) {
     this.tasksService.addTask({
       title: taskInput.title,
@@ -60,7 +54,7 @@ export class ProjectTasklistComponent {
   toggleTask(id: number) {
     const task = this.tasksService.getTask(id);
     if (task) {
-      this.tasksService.updateTask(id, { completed: !task.completed });
+      this.tasksService.updateTask(id, { status: 'completed' });
     }
   }
 

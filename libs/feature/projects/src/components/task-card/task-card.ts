@@ -1,13 +1,6 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { DatePipe } from '@angular/common';
-
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-  createdAt: Date;
-}
+import { Task } from '@shared/models';
 
 @Component({
   selector: 'tn-task-card',

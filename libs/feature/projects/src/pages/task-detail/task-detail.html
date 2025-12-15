@@ -9,9 +9,9 @@
 
     @if (!isEditMode()) {
       <div class="task-detail-card">
-        <div class="task-status-banner" [class.completed]="task()!.completed">
+        <div class="task-status-banner" [class.completed]="task()!.status === 'completed'">
           <span class="status-badge">
-            @if (task()!.completed) {
+            @if (task()!.status === 'completed') {
               ✓ Completed
             } @else {
               In Progress
@@ -36,8 +36,8 @@
             </div>
             <div class="meta-item">
               <span class="meta-label">Status</span>
-              <span [class.completed]="task()!.completed">
-                {{ task()!.completed ? 'Completed' : 'In Progress' }}
+              <span [class.completed]="task()!.status === 'completed'">
+                {{ task()!.status === 'completed' ? 'Completed' : 'In Progress' }}
               </span>
             </div>
           </div>
@@ -46,9 +46,9 @@
             <button 
               class="action-btn toggle-btn" 
               (click)="toggleTask()"
-              [class.completed]="task()!.completed"
+              [class.completed]="task()!.status === 'completed'"
             >
-              {{ task()!.completed ? '✓ Mark as In Progress' : '○ Mark as Completed' }}
+              {{ task()!.status === 'completed' ? '✓ Mark as In Progress' : '○ Mark as Completed' }}
             </button>
             <button class="action-btn edit-btn" (click)="startEdit()">
               ✎ Edit
@@ -63,7 +63,7 @@
       <!-- Edit Form using CreateTaskComponent -->
       <tn-create-task
         [initialTitle]="task()!.title"
-        [initialDescription]="task()!.description"
+        [initialDescription]="task()!.description || ''"
         [isEditMode]="true"
         (taskSaved)="saveEdit($event)"
         (taskEditCancelled)="cancelEdit()"

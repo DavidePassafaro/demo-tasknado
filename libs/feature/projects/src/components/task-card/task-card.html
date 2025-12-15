@@ -1,6 +1,6 @@
 <div 
   class="task-item" 
-  [class.completed]="task().completed" 
+  [class.completed]="task().status === 'completed'" 
   (click)="onTaskClick()" 
   (keydown.enter)="onTaskClick()"
   (keydown.space)="onTaskClick()"
@@ -12,12 +12,12 @@
     <div class="task-checkbox-title">
       <input
         type="checkbox"
-        [checked]="task().completed"
+        [checked]="task().status === 'completed'"
         (click)="$event.stopPropagation()"
         (change)="onToggle($event)"
         class="task-checkbox"
         [attr.aria-label]="
-          'Mark as ' + (task().completed ? 'not ' : '') + 'completed: ' + task().title
+          'Mark as ' + (task().status === 'completed' ? 'not ' : '') + 'completed: ' + task().title
         "
       />
       <h3 class="task-title">{{ task().title }}</h3>
@@ -32,7 +32,7 @@
 
   <div class="task-meta">
     <span class="task-status">
-      @if (task().completed) {
+      @if (task().status === 'completed') {
         ✓ Completed
       } @else {
         In progress

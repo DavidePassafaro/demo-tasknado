@@ -1,33 +1,25 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Task } from '@shared/models';
+import { Observable, tap } from 'rxjs';
 
 const BASE_API_URL = 'http://localhost:4000/';
 
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-  createdAt: Date;
-  projectId?: number;
-}
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class TasksService {
   private readonly http = inject(HttpClient);
 
   #tasks = signal<Task[]>([]);
   tasks = this.#tasks.asReadonly();
 
-  getTasks(projectId: number): void {
-    this.http
+  getTasks(projectId: number): Observable<Task[]> {
+    return this.http
       .get<Task[]>(`${BASE_API_URL}api/tasks/project/${projectId}`, { withCredentials: true })
-      .subscribe((response) => {
-        this.#tasks.set(response);
-      });
+      .pipe(
+        tap((response) => {
+          this.#tasks.set(response);
+        })
+      );
   }
 
   addTask(task: Partial<Task>): void {

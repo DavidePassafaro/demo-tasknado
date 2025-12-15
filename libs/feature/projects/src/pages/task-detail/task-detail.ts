@@ -45,9 +45,7 @@ export class TaskDetailComponent {
   toggleTask() {
     const currentTask = this.task();
     if (currentTask) {
-      this.tasksService.updateTask(currentTask.id, { 
-        completed: !currentTask.completed 
-      });
+      this.tasksService.updateTask(currentTask.id, { status: 'completed' });
     }
   }
 
