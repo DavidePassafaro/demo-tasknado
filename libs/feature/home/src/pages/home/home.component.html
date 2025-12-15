@@ -36,7 +36,7 @@
         [icon]="feature.icon"
         [title]="feature.title"
         [description]="feature.description"
-      ></tn-primary-card>
+      />
       }
     </div>
   </section>
@@ -45,31 +45,26 @@
   <section class="benefits">
     <h2>Boost Your Productivity</h2>
     <div class="benefits-grid">
-      <tn-benefit-card number="50%" label="More Efficiency"></tn-benefit-card>
-      <tn-benefit-card number="10+" label="Integrations"></tn-benefit-card>
-      <tn-benefit-card number="100%" label="Project Visibility"></tn-benefit-card>
+      <tn-benefit-card number="50%" label="More Efficiency" />
+      <tn-benefit-card number="10+" label="Integrations" />
+      <tn-benefit-card number="100%" label="Project Visibility" />
     </div>
   </section>
 
   <!-- Chart Section -->
-  @defer (on viewport) {
   <section class="chart-section">
     <div class="section-header">
       <h2>Track Your Progress</h2>
       <p>Monitor tasks completion and pending work over time</p>
     </div>
+
+    @defer (on viewport) {
     <tn-line-chart
       [data]="chartData"
       [options]="{ height: 400, showLegend: true, showGrid: true }"
-    ></tn-line-chart>
-  </section>
-  } @placeholder {
-  <section class="chart-section">
-    <div class="section-header">
-      <h2>Track Your Progress</h2>
-      <p>Monitor tasks completion and pending work over time</p>
-    </div>
+    />
+    } @placeholder {
     <div class="chart-placeholder">Loading chart...</div>
+    }
   </section>
-  }
 </div>
