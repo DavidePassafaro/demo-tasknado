@@ -4,7 +4,7 @@
   </div>
 
   <!-- Form to create new project -->
-  <tn-create-project (projectCreated)="onProjectCreated($event)"></tn-create-project>
+  <tn-create-project (projectCreated)="onProjectCreated($event)"/>
 
   <!-- Vertical project list -->
   <div class="projects-list">
@@ -22,7 +22,7 @@
             [project]="project"
             (projectDeleted)="deleteProject($event)"
             (projectSelected)="onProjectSelected($event)"
-          ></tn-project-card>
+          />
         </div>
       </div>
     </cdk-virtual-scroll-viewport>

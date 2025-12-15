@@ -30,7 +30,7 @@ export const projectsRoutes: Route[] = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./projects/projects').then((m) => m.Projects),
+        loadComponent: () => import('./projects/projects.component').then((m) => m.Projects),
       },
       {
         path: ':id',
@@ -43,7 +43,7 @@ export const projectsRoutes: Route[] = [
           {
             path: 'task/:taskId',
             loadComponent: () =>
-              import('./task-detail/task-detail').then((m) => m.TaskDetailComponent),
+              import('./task-detail/task-detail.component').then((m) => m.TaskDetailComponent),
           },
         ],
         resolve: {

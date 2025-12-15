@@ -14,8 +14,8 @@ interface ProjectInput {
 
 @Component({
   selector: 'tn-projects',
-  templateUrl: './projects.html',
-  styleUrl: './projects.scss',
+  templateUrl: './projects.component.html',
+  styleUrl: './projects.component.scss',
   imports: [CreateProjectComponent, ProjectCardComponent, ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -26,7 +26,11 @@ export class Projects {
   projects = computed(() => this.projectsService.projects());
   nextId = 1;
 
-  onProjectCreated(projectInput: ProjectInput) {
+  /**
+   * Handles the creation of a new project
+   * @param projectInput The input data for the new project
+   */
+  protected onProjectCreated(projectInput: ProjectInput): void {
     const newProject: Partial<Project> = {
       name: projectInput.name,
       description: projectInput.description,
@@ -35,11 +39,19 @@ export class Projects {
     this.projectsService.addProject(newProject);
   }
 
-  deleteProject(id: number) {
+  /**
+   * Deletes a project by its ID
+   * @param id The ID of the project to delete
+   */
+  protected deleteProject(id: number): void {
     this.projectsService.deleteProject(id);
   }
 
-  onProjectSelected(project: Project) {
+  /**
+   * Navigates to the selected project's detail page
+   * @param project The selected project
+   */
+  protected onProjectSelected(project: Project): void {
     this.router.navigate(['/projects/', project.id]);
   }
 }
