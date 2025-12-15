@@ -1,7 +1,7 @@
-<div 
-  class="task-item" 
-  [class.completed]="task().status === 'completed'" 
-  (click)="onTaskClick()" 
+<div
+  class="task-item"
+  [class.completed]="isTaskStatusCompleted()"
+  (click)="onTaskClick()"
   (keydown.enter)="onTaskClick()"
   (keydown.space)="onTaskClick()"
   role="button"
@@ -12,31 +12,27 @@
     <div class="task-checkbox-title">
       <input
         type="checkbox"
-        [checked]="task().status === 'completed'"
+        [checked]="isTaskStatusCompleted()"
         (click)="$event.stopPropagation()"
         (change)="onToggle($event)"
         class="task-checkbox"
         [attr.aria-label]="
-          'Mark as ' + (task().status === 'completed' ? 'not ' : '') + 'completed: ' + task().title
+          'Mark as ' + (isTaskStatusCompleted() ? 'not ' : '') + 'completed: ' + task().title
         "
       />
       <h3 class="task-title">{{ task().title }}</h3>
     </div>
 
-    <tn-delete-button (deleted)="onDelete()"></tn-delete-button>
+    <tn-delete-button (deleted)="onDelete()" />
   </div>
 
   @if (task().description) {
-    <p class="task-description">{{ task().description }}</p>
+  <p class="task-description">{{ task().description }}</p>
   }
 
   <div class="task-meta">
     <span class="task-status">
-      @if (task().status === 'completed') {
-        ✓ Completed
-      } @else {
-        In progress
-      }
+      @if (isTaskStatusCompleted()) { ✓ Completed } @else { In progress }
     </span>
 
     <span class="task-date">
