@@ -46,3 +46,6 @@ Thumbs.db
 .nx/cache
 .nx/workspace-data
 .angular
+
+# Ignore keys configuration file
+apps/server/src/config/keys.js
