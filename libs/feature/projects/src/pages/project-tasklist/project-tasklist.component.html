@@ -4,7 +4,7 @@
   </div>
 
   <!-- Form to create new task -->
-  <tn-create-task (taskCreated)="onTaskCreated($event)"></tn-create-task>
+  <tn-create-task (taskCreated)="onTaskCreated($event)" />
 
   <!-- Vertical task list -->
   <div class="tasks-list">
@@ -23,7 +23,7 @@
             (taskDeleted)="deleteTask($event)"
             (taskToggled)="toggleTask($event)"
             (taskSelected)="onTaskSelected($event)"
-          ></tn-task-card>
+          />
         </div>
       </div>
     </cdk-virtual-scroll-viewport>

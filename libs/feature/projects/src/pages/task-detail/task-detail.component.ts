@@ -17,8 +17,8 @@ export class TaskDetailComponent {
   private route = inject(ActivatedRoute);
   private tasksService = inject(TasksService);
 
-  taskId = signal<number | null>(null);
-  isEditMode = signal(false);
+  protected taskId = signal<number>(0);
+  protected isEditMode = signal(false);
 
   protected task = computed(() => this.getTask());
   protected isTaskStatusCompleted = computed(() => this.task()?.status === 'completed');

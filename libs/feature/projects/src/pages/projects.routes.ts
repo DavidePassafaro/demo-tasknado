@@ -38,7 +38,7 @@ export const projectsRoutes: Route[] = [
           {
             path: '',
             loadComponent: () =>
-              import('./project-tasklist/project-tasklist').then((m) => m.ProjectTasklistComponent),
+              import('./project-tasklist/project-tasklist.component').then((m) => m.ProjectTasklistComponent),
           },
           {
             path: 'task/:taskId',
