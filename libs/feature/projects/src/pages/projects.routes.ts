@@ -1,6 +1,14 @@
 import { Route } from '@angular/router';
-import { Projects } from './projects/projects';
 
 export const projectsRoutes: Route[] = [
-  { path: '', component: Projects },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./projects/projects').then((m) => m.Projects),
+  },
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('./project-tasklist/project-tasklist').then((m) => m.ProjectTasklistComponent),
+  },
 ];
