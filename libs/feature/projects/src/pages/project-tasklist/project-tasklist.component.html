@@ -1,10 +1,9 @@
 <div class="tasks-container">
   <div class="tasks-header">
     <h1>{{ project()?.name }} - Tasks</h1>
-  </div>
 
-  <!-- Form to create new task -->
-  <tn-create-task (taskCreated)="onTaskCreated($event)" />
+    <tn-create-entity entityName="Task" (entityCreated)="onTaskCreated($event)" />
+  </div>
 
   <!-- Vertical task list -->
   <div class="tasks-list">
@@ -15,9 +14,9 @@
       <p>You haven't created any tasks yet. Start adding one!</p>
     </div>
     } @else if (tasks().length > 0) {
-    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="105">
+    <cdk-virtual-scroll-viewport class="tasks-virtual-scroll" itemSize="121">
       <div class="tasks-vertical">
-        <div *cdkVirtualFor="let task of tasks(); trackBy: trackByTaskId" class="example-item">
+        <div *cdkVirtualFor="let task of tasks(); trackBy: trackByTaskId">
           <tn-task-card
             [task]="task"
             (taskDeleted)="deleteTask($event)"

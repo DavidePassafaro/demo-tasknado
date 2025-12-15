@@ -1,14 +1,14 @@
 import { Component, inject, computed, ChangeDetectionStrategy, signal } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CreateTaskComponent } from '../../components/create-task/create-task.component';
+import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { TasksService } from '../../services/tasks.service';
 import { ProjectsService } from '../../services/projects.service';
 import { Project, Task } from '@shared/models';
 
 interface TaskInput {
-  title: string;
+  name: string;
   description: string;
 }
 
@@ -16,7 +16,7 @@ interface TaskInput {
   selector: 'tn-project-tasklist',
   templateUrl: './project-tasklist.component.html',
   styleUrl: './project-tasklist.component.scss',
-  imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
+  imports: [CreateEntityComponent, TaskCardComponent, ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectTasklistComponent {
@@ -44,7 +44,7 @@ export class ProjectTasklistComponent {
    */
   protected onTaskCreated(taskInput: TaskInput): void {
     this.tasksService.addTask({
-      title: taskInput.title,
+      title: taskInput.name,
       description: taskInput.description,
       projectId: this.projectId(),
     });

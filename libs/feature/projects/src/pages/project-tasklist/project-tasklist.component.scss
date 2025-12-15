@@ -2,7 +2,8 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
 
   h1 {
     color: #333;
@@ -143,7 +144,7 @@
 
 /* Virtual scroll viewport */
 .tasks-virtual-scroll {
-  height: 600px;
+  height: 750px;
   border-radius: 8px;
   margin-bottom: 2rem;
 }
