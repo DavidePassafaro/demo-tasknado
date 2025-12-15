@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
-import { CreateProjectComponent } from '../../components/create-project/create-project.component';
+import { EditEntityComponent } from '../../components/edit-entity/edit-entity.component';
 import { ProjectsService } from '../../services/projects.service';
 import { Project } from '@shared/models';
 
@@ -15,7 +15,7 @@ interface ProjectInput {
   selector: 'tn-project-detail',
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
-  imports: [DatePipe, CommonModule, CreateProjectComponent, RouterLink],
+  imports: [DatePipe, CommonModule, EditEntityComponent, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectDetailComponent {

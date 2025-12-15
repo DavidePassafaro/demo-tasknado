@@ -48,15 +48,19 @@
     </div>
   </div>
   } @else {
-  <!-- Edit Form using CreateProjectComponent -->
-  <tn-create-project
-    [initialName]="project()!.name"
-    [initialDescription]="project()!.description || ''"
-    [initialColor]="project()!.color || ''"
-    [isEditMode]="true"
-    (projectSaved)="saveEdit($event)"
-    (projectEditCancelled)="cancelEdit()"
-  />
+  <div class="edit-container">
+    <tn-edit-entity
+      [entity]="{
+        name: project()!.name,
+        description: project()!.description || '',
+        color: project()!.color
+      }"
+      [includeColors]="true"
+      entityType="project"
+      (entityUpdated)="saveEdit($event)"
+      (closed)="cancelEdit()"
+    />
+  </div>
   } } @else {
   <div class="no-project">
     <p>Project not found</p>

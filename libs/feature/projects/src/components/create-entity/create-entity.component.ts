@@ -6,7 +6,6 @@ import {
   signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface EntityInput {
@@ -15,11 +14,22 @@ interface EntityInput {
   color?: string;
 }
 
+const COLORS = [
+  '#667eea', // Purple
+  '#764ba2', // Dark Purple
+  '#f093fb', // Pink
+  '#4facfe', // Blue
+  '#00f2fe', // Cyan
+  '#43e97b', // Green
+  '#fa709a', // Red
+  '#fee140', // Yellow
+];
+
 @Component({
   selector: 'tn-create-entity',
   templateUrl: './create-entity.component.html',
   styleUrl: './create-entity.component.scss',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateEntityComponent {
@@ -32,18 +42,9 @@ export class CreateEntityComponent {
 
   name = signal('');
   description = signal('');
-  color = signal('#667eea');
+  color = signal(COLORS[0]);
 
-  protected readonly colors = [
-    '#667eea', // Purple
-    '#764ba2', // Dark Purple
-    '#f093fb', // Pink
-    '#4facfe', // Blue
-    '#00f2fe', // Cyan
-    '#43e97b', // Green
-    '#fa709a', // Red
-    '#fee140', // Yellow
-  ];
+  protected readonly colors = COLORS;
 
   /**
    * Toggles the expansion state of the create entity form
@@ -69,7 +70,7 @@ export class CreateEntityComponent {
     // Reset form
     this.name.set('');
     this.description.set('');
-    this.color.set(this.colors[0]);
+    this.color.set(COLORS[0]);
     this.isExpanded.set(false);
   }
 

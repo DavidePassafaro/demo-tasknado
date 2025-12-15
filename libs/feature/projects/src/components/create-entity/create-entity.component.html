@@ -15,11 +15,11 @@
         <input
           id="name"
           type="text"
+          name="name"
           placeholder="Enter name..."
+          required
           [(ngModel)]="name"
           (ngModelChange)="name.set($event)"
-          name="name"
-          required
         />
       </div>
 
@@ -28,11 +28,11 @@
         <label for="description">Description</label>
         <textarea
           id="description"
+          name="description"
+          rows="4"
           placeholder="Enter description..."
           [(ngModel)]="description"
           (ngModelChange)="description.set($event)"
-          name="description"
-          rows="4"
         ></textarea>
       </div>
 
@@ -40,6 +40,7 @@
       @if (includeColors()) {
       <div class="form-group">
         <span>Color</span>
+
         <div class="color-picker">
           @for (colorOption of colors; track colorOption) {
           <button
@@ -47,8 +48,8 @@
             class="color-option"
             [style.background-color]="colorOption"
             [class.selected]="color() === colorOption"
-            (click)="color.set(colorOption)"
             [attr.aria-label]="'Color ' + colorOption"
+            (click)="color.set(colorOption)"
           ></button>
           }
         </div>
@@ -58,6 +59,7 @@
       <!-- Buttons -->
       <div class="form-actions">
         <button type="button" class="btn-cancel" (click)="close()">Cancel</button>
+
         <button type="submit" class="btn-submit" [disabled]="!name().trim()">
           Create {{ entityName() }}
         </button>

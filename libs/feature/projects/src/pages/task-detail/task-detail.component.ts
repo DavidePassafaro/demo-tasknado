@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
-import { CreateTaskComponent } from '../../components/create-task/create-task.component';
+import { EditEntityComponent, EntityInput } from '../../components/edit-entity/edit-entity.component';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '@shared/models';
 
@@ -9,7 +9,7 @@ import { Task } from '@shared/models';
   selector: 'tn-task-detail',
   templateUrl: './task-detail.component.html',
   styleUrl: './task-detail.component.scss',
-  imports: [DatePipe, CommonModule, CreateTaskComponent],
+  imports: [DatePipe, CommonModule, EditEntityComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskDetailComponent {
@@ -61,11 +61,11 @@ export class TaskDetailComponent {
    * Saves the edited task details
    * @param taskInput The edited task details
    */
-  protected saveEdit(taskInput: { title: string; description: string }): void {
+  protected saveEdit(taskInput: EntityInput): void {
     const currentTask = this.task();
     if (currentTask) {
       this.tasksService.updateTask(currentTask.id, {
-        title: taskInput.title,
+        title: taskInput.name,
         description: taskInput.description,
       });
       this.isEditMode.set(false);

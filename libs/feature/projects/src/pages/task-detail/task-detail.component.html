@@ -50,14 +50,18 @@
     </div>
   </div>
   } @else {
-  <!-- Edit Form using CreateTaskComponent -->
-  <tn-create-task
-    [initialTitle]="task()!.title"
-    [initialDescription]="task()!.description || ''"
-    [isEditMode]="true"
-    (taskSaved)="saveEdit($event)"
-    (taskEditCancelled)="cancelEdit()"
-  />
+  <div class="edit-container">
+    <tn-edit-entity
+      [entity]="{
+        name: task()!.title,
+        description: task()!.description || ''
+      }"
+      [includeColors]="false"
+      entityType="task"
+      (entityUpdated)="saveEdit($event)"
+      (closed)="cancelEdit()"
+    />
+  </div>
   } } @else {
   <div class="no-task">
     <p>Task not found</p>
