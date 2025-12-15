@@ -18,10 +18,6 @@ export const appRoutes: Route[] = [
         loadChildren: () => import('@feature/projects').then((m) => m.projectsRoutes),
       },
       {
-        path: 'tasks',
-        loadChildren: () => import('@feature/tasks').then((m) => m.tasksRoutes),
-      },
-      {
         path: '404',
         pathMatch: 'full',
         loadComponent: () => import('@feature/not-found').then((m) => m.NotFoundPage),
