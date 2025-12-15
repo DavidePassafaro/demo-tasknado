@@ -23,7 +23,7 @@
       <h3 class="task-title">{{ task().title }}</h3>
     </div>
 
-    <button (click)="onDelete($event)" class="delete-btn" title="Delete task">×</button>
+    <tn-delete-button (deleted)="onDelete()"></tn-delete-button>
   </div>
 
   @if (task().description) {

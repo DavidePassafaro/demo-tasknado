@@ -61,33 +61,6 @@
   }
 }
 
-.delete-btn {
-  background: none;
-  border: none;
-  color: #999;
-  font-size: 1.75rem;
-  cursor: pointer;
-  padding: 0;
-  min-width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-
-  &:hover {
-    background: #fee;
-    color: #e53935;
-    transform: scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
 .project-meta {
   display: flex;
   flex-direction: column;
