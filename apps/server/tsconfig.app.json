@@ -5,5 +5,5 @@
     "module": "commonjs",
     "types": ["node", "express"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts", "prisma.config.ts"]
 }

@@ -10,7 +10,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/server",
-        "main": "apps/server/src/main.ts",
+        "main": "apps/server/src/index.js",
         "tsConfig": "apps/server/tsconfig.app.json",
         "assets": ["apps/server/src/assets"]
       },
