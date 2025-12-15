@@ -1,4 +1,8 @@
-import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable, signal } from '@angular/core';
+import { Observable } from 'rxjs';
+
+const BASE_API_URL = 'http://localhost:4000/';
 
 export interface Task {
   id: number;
@@ -6,36 +10,59 @@ export interface Task {
   description: string;
   completed: boolean;
   createdAt: Date;
+  projectId?: number;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class TasksService {
-  tasks = signal<Task[]>([]);
+  private readonly http = inject(HttpClient);
 
-  addTask(task: Task) {
-    this.tasks.set([...this.tasks(), task]);
+  #tasks = signal<Task[]>([]);
+  tasks = this.#tasks.asReadonly();
+
+  getTasks(projectId: number): void {
+    this.http
+      .get<Task[]>(`${BASE_API_URL}api/tasks/project/${projectId}`, { withCredentials: true })
+      .subscribe((response) => {
+        this.#tasks.set(response);
+      });
   }
 
-  getTask(id: number): Task | null {
-    return this.tasks().find(t => t.id === id) || null;
+  addTask(task: Partial<Task>): void {
+    this.http
+      .post<Task>(`${BASE_API_URL}api/tasks`, task, { withCredentials: true })
+      .subscribe((response) => {
+        this.#tasks.set([...this.#tasks(), response]);
+      });
   }
 
-  getTasks(): Task[] {
-    return this.tasks();
+  getTaskById(id: number): Observable<Task> {
+    return this.http.get<Task>(`${BASE_API_URL}api/tasks/${id}`, { withCredentials: true });
   }
 
-  updateTask(id: number, updates: Partial<Task>) {
-    const tasks = this.tasks();
-    const index = tasks.findIndex(t => t.id === id);
-    if (index !== -1) {
-      tasks[index] = { ...tasks[index], ...updates };
-      this.tasks.set([...tasks]);
-    }
+  getTasksByProjectId(projectId: number): Observable<Task[]> {
+    return this.http.get<Task[]>(`${BASE_API_URL}api/projects/${projectId}/tasks`, {
+      withCredentials: true,
+    });
   }
 
-  deleteTask(id: number) {
-    this.tasks.set(this.tasks().filter(t => t.id !== id));
+  updateTask(id: number, updates: Partial<Task>): void {
+    this.http
+      .put<Task>(`${BASE_API_URL}api/tasks/${id}`, updates, { withCredentials: true })
+      .subscribe((updatedTask) => {
+        const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
+        this.#tasks.set(updatedTasks);
+      });
+  }
+
+  deleteTask(id: number): void {
+    this.http.delete(`${BASE_API_URL}api/tasks/${id}`, { withCredentials: true }).subscribe(() => {
+      const updatedTasks = this.#tasks().filter((t) => t.id !== id);
+      this.#tasks.set(updatedTasks);
+    });
+  }
+
+  getTask(id: number): Task | undefined {
+    return this.#tasks().find((t) => t.id === id);
   }
 }

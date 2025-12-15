@@ -16,6 +16,7 @@ interface TaskInput {
   templateUrl: './project-tasklist.html',
   styleUrl: './project-tasklist.scss',
   imports: [CreateTaskComponent, TaskCardComponent, ScrollingModule],
+  providers: [TasksService],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectTasklistComponent {
@@ -38,15 +39,19 @@ export class ProjectTasklistComponent {
   tasks = computed(() => this.tasksService.tasks());
   nextId = 1;
 
+  constructor() {
+    const projectId = this.projectId();
+    if (projectId) {
+      this.tasksService.getTasks(projectId);
+    }
+  }
+
   onTaskCreated(taskInput: TaskInput) {
-    const newTask: Task = {
-      id: this.nextId++,
+    this.tasksService.addTask({
       title: taskInput.title,
       description: taskInput.description,
-      completed: false,
-      createdAt: new Date(),
-    };
-    this.tasksService.addTask(newTask);
+      projectId: this.projectId() || undefined,
+    });
   }
 
   deleteTask(id: number) {
