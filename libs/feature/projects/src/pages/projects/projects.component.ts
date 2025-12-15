@@ -1,8 +1,8 @@
 import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router } from '@angular/router';
-import { CreateProjectComponent } from '../../components/create-project/create-project';
-import { ProjectCardComponent } from '../../components/project-card/project-card';
+import { CreateProjectComponent } from '../../components/create-project/create-project.component';
+import { ProjectCardComponent } from '../../components/project-card/project-card.component';
 import { ProjectsService } from '../../services/projects.service';
 import { Project } from '@shared/models';
 

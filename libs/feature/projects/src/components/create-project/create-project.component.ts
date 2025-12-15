@@ -7,23 +7,28 @@ interface ProjectInput {
   color?: string;
 }
 
+const AVAILABLE_COLORS = [
+  '#3b82f6',
+  '#FF6B6B',
+  '#4ECDC4',
+  '#45B7D1',
+  '#FFA07A',
+  '#98D8C8',
+  '#F7DC6F',
+];
+
 @Component({
   selector: 'tn-create-project',
-  templateUrl: './create-project.html',
-  styleUrl: './create-project.scss',
+  templateUrl: './create-project.component.html',
+  styleUrl: './create-project.component.scss',
   imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateProjectComponent {
-  // Color palette
-  availableColors = ['#3b82f6', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F'];
-
-  // Inputs
   initialName = input('');
   initialDescription = input('');
   isEditMode = input(false);
 
-  // Outputs
   projectCreated = output<ProjectInput>();
   projectSaved = output<ProjectInput>();
   projectEditCancelled = output<void>();
@@ -31,10 +36,11 @@ export class CreateProjectComponent {
   isExpanded = signal(false);
   projectName = signal('');
   projectDescription = signal('');
-  selectedColor = signal(this.availableColors[0]);
+  selectedColor = signal(AVAILABLE_COLORS[0]);
+
+  protected AVAILABLE_COLORS = AVAILABLE_COLORS;
 
   constructor() {
-    // Effetto per aggiornare i campi quando gli input cambiano
     effect(() => {
       const name = this.initialName();
       const description = this.initialDescription();
@@ -52,11 +58,17 @@ export class CreateProjectComponent {
     });
   }
 
-  toggleExpanded() {
+  /**
+   * Toggles the expanded state of the project creation form.
+   */
+  protected toggleExpanded(): void {
     this.isExpanded.update((value) => !value);
   }
 
-  addProject() {
+  /**
+   * Handles the addition of a new project or saving of an existing project.
+   */
+  protected addProject(): void {
     const name = this.projectName().trim();
     if (!name) {
       alert('Project name cannot be empty');
@@ -78,7 +90,10 @@ export class CreateProjectComponent {
     }
   }
 
-  cancel() {
+  /**
+   * Handles the cancellation of project creation or editing.
+   */
+  protected cancel(): void {
     if (this.isEditMode()) {
       this.projectEditCancelled.emit();
     } else {

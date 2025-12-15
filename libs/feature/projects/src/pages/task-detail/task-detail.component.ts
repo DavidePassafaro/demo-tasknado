@@ -1,7 +1,7 @@
 import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
-import { CreateTaskComponent } from '../../components/create-task/create-task';
+import { CreateTaskComponent } from '../../components/create-task/create-task.component';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '@shared/models';
 

@@ -1,6 +1,7 @@
 <div class="create-project-form" [class.expanded]="isExpanded()">
   <div class="create-project-header">
     <h2>{{ isEditMode() ? 'Edit project' : 'Create a new project' }}</h2>
+
     @if (!isEditMode()) {
     <button
       type="button"
@@ -43,9 +44,9 @@
 
     <div class="form-group">
       <span>Project color</span>
-      
+
       <div class="color-selector">
-        @for (color of availableColors; track color) {
+        @for (color of AVAILABLE_COLORS; track color) {
         <button
           type="button"
           class="color-dot"

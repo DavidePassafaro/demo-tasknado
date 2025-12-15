@@ -4,21 +4,28 @@ import { DeleteButtonComponent } from '@shared/ui';
 
 @Component({
   selector: 'tn-project-card',
-  templateUrl: './project-card.html',
-  styleUrl: './project-card.scss',
+  templateUrl: './project-card.component.html',
+  styleUrl: './project-card.component.scss',
   imports: [DeleteButtonComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectCardComponent {
   project = input.required<Project>();
+
   projectDeleted = output<number>();
   projectSelected = output<Project>();
 
-  onProjectClick() {
+  /**
+   * Emits the selected project when the card is clicked
+   */
+  protected onProjectClick(): void {
     this.projectSelected.emit(this.project());
   }
 
-  onDelete() {
+  /**
+   * Emits the project ID when the delete button is clicked
+   */
+  protected onDelete(): void {
     this.projectDeleted.emit(this.project().id);
   }
 }

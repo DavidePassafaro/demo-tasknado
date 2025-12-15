@@ -8,33 +8,30 @@ interface TaskInput {
 
 @Component({
   selector: 'tn-create-task',
-  templateUrl: './create-task.html',
-  styleUrl: './create-task.scss',
+  templateUrl: './create-task.component.html',
+  styleUrl: './create-task.component.scss',
   imports: [FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateTaskComponent {
-  // Inputs
   initialTitle = input('');
   initialDescription = input('');
   isEditMode = input(false);
 
-  // Outputs
   taskCreated = output<TaskInput>();
   taskSaved = output<TaskInput>();
   taskEditCancelled = output<void>();
 
-  isExpanded = signal(false);
-  taskTitle = signal('');
-  taskDescription = signal('');
+  protected isExpanded = signal(false);
+  protected taskTitle = signal('');
+  protected taskDescription = signal('');
 
   constructor() {
-    // Effetto per aggiornare i campi quando gli input cambiano
     effect(() => {
       const title = this.initialTitle();
       const description = this.initialDescription();
       const editMode = this.isEditMode();
-      
+
       if (editMode) {
         this.taskTitle.set(title);
         this.taskDescription.set(description);
@@ -47,11 +44,17 @@ export class CreateTaskComponent {
     });
   }
 
-  toggleExpanded() {
-    this.isExpanded.update(value => !value);
+  /**
+   * Toggles the expanded state of the create task form
+   */
+  protected toggleExpanded(): void {
+    this.isExpanded.update((value) => !value);
   }
 
-  addTask() {
+  /**
+   * Adds a new task or saves the edited task
+   */
+  protected addTask(): void {
     const title = this.taskTitle().trim();
     if (!title) {
       alert('Title cannot be empty');
@@ -72,7 +75,10 @@ export class CreateTaskComponent {
     }
   }
 
-  cancel() {
+  /**
+   * Cancels the task creation or editing
+   */
+  protected cancel(): void {
     if (this.isEditMode()) {
       this.taskEditCancelled.emit();
     } else {
