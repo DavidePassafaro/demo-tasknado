@@ -1,16 +1,6 @@
-import { D } from '@angular/cdk/keycodes';
 import { ChangeDetectionStrategy, Component, input, numberAttribute } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
-export interface FooterLink {
-  label: string;
-  link: string;
-}
-
-export interface FooterSection {
-  title: string;
-  links: FooterLink[];
-}
+import { FooterSection } from './footer.model';
 
 @Component({
   selector: 'tn-footer',

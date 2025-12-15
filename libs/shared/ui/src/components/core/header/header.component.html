@@ -2,34 +2,31 @@
   <div class="header__container">
     <div class="header__logo">
       @if (logoImage()) {
-        <img [src]="logoImage()" alt="Logo" class="header__logo-image" />
+      <img [src]="logoImage()" alt="Logo" class="header__logo-image" />
       }
+
       <h1>{{ logoText() }}</h1>
     </div>
 
     <nav class="header__nav" [class.header__nav--open]="isMenuOpen()">
       <ul class="header__nav-list">
         @for (item of navItems(); track item.link) {
-          <li>
-            <a 
-              [routerLink]="item.link" 
-              routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
-              (click)="closeMenu()"
-            >
-              {{ item.label }}
-            </a>
-          </li>
+        <li>
+          <a
+            [routerLink]="item.link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="closeMenu()"
+          >
+            {{ item.label }}
+          </a>
+        </li>
         }
       </ul>
     </nav>
 
     <div class="header__actions">
-      <button
-        class="header__theme-toggle"
-        (click)="toggleTheme()"
-        aria-label="Toggle dark mode"
-      >
+      <button class="header__theme-toggle" (click)="toggleTheme()" aria-label="Toggle dark mode">
         <span>🌓</span>
       </button>
 

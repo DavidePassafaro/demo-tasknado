@@ -21,13 +21,16 @@ export class LineChartComponent implements AfterViewInit {
     animationDuration: 750,
   });
 
-  chartId = `line-chart-${Math.random().toString(36).substr(2, 9)}`;
+  protected readonly chartId = `line-chart-${Math.random().toString(36).substr(2, 9)}`;
 
   ngAfterViewInit() {
     this.renderChart();
   }
 
-  private renderChart() {
+  /**
+   * Renders the line chart on the canvas.
+   */
+  private renderChart(): void {
     const canvas = document.getElementById(this.chartId) as HTMLCanvasElement;
     if (!canvas) return;
 
@@ -51,11 +54,17 @@ export class LineChartComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Draws the line chart on the given canvas context.
+   * @param ctx
+   * @param data
+   * @param options
+   */
   private drawLineChart(
     ctx: CanvasRenderingContext2D,
     data: LineChartData,
     options: LineChartOptions
-  ) {
+  ): void {
     const width = ctx.canvas.width;
     const height = ctx.canvas.height;
     const padding = 60;
@@ -78,8 +87,8 @@ export class LineChartComponent implements AfterViewInit {
     this.drawAxes(ctx, padding, plotWidth, plotHeight);
 
     // Draw data lines
-    data.datasets.forEach((dataset, index) => {
-      this.drawDataset(ctx, dataset, data.labels, padding, plotWidth, plotHeight);
+    data.datasets.forEach((dataset) => {
+      this.drawDataset(ctx, dataset, padding, plotWidth, plotHeight);
     });
 
     // Draw legend
@@ -91,6 +100,14 @@ export class LineChartComponent implements AfterViewInit {
     this.drawLabels(ctx, data.labels, padding, plotWidth, plotHeight);
   }
 
+  /**
+   * Draws the grid lines on the chart.
+   * @param ctx
+   * @param padding
+   * @param width
+   * @param height
+   * @param labelCount
+   */
   private drawGrid(
     ctx: CanvasRenderingContext2D,
     padding: number,
@@ -122,6 +139,13 @@ export class LineChartComponent implements AfterViewInit {
     }
   }
 
+  /**
+   * Draws the X and Y axes.
+   * @param ctx
+   * @param padding
+   * @param width
+   * @param height
+   */
   private drawAxes(ctx: CanvasRenderingContext2D, padding: number, width: number, height: number) {
     ctx.strokeStyle = '#374151';
     ctx.lineWidth = 2;
@@ -139,10 +163,17 @@ export class LineChartComponent implements AfterViewInit {
     ctx.stroke();
   }
 
+  /**
+   * Draws a single dataset line on the chart.
+   * @param ctx
+   * @param dataset
+   * @param padding
+   * @param width
+   * @param height
+   */
   private drawDataset(
     ctx: CanvasRenderingContext2D,
     dataset: LineChartData['datasets'][0],
-    labels: string[],
     padding: number,
     width: number,
     height: number
@@ -184,6 +215,12 @@ export class LineChartComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Draws the legend for the datasets.
+   * @param ctx
+   * @param datasets
+   * @param width
+   */
   private drawLegend(
     ctx: CanvasRenderingContext2D,
     datasets: LineChartData['datasets'],
@@ -209,6 +246,14 @@ export class LineChartComponent implements AfterViewInit {
     });
   }
 
+  /**
+   * Draws the labels on the X and Y axes.
+   * @param ctx
+   * @param labels
+   * @param padding
+   * @param width
+   * @param height
+   */
   private drawLabels(
     ctx: CanvasRenderingContext2D,
     labels: string[],

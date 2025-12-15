@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-
-export interface NavItem {
-  label: string;
-  link: string;
-}
+import { NavItem } from './header.model';
 
 @Component({
   selector: 'tn-header',
@@ -24,17 +20,27 @@ export class HeaderComponent implements OnInit {
     document.body.setAttribute('data-theme', 'light');
   }
 
-  toggleMenu() {
+  /**
+   * Toggles the navigation menu open/closed
+   */
+  protected toggleMenu(): void {
     this.isMenuOpen.update((value) => !value);
   }
 
-  closeMenu() {
+  /**
+   * Closes the navigation menu
+   */
+  protected closeMenu(): void {
     this.isMenuOpen.set(false);
   }
 
-  toggleTheme() {
+  /**
+   * Toggles between light and dark themes
+   */
+  protected toggleTheme(): void {
     const body = document.body;
     const isDark = body.getAttribute('data-theme') === 'dark';
+
     if (isDark) {
       body.setAttribute('data-theme', 'light');
     } else {

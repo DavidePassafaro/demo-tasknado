@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FooterComponent, HeaderComponent } from '@shared/ui';
+import { FooterComponent, FooterSection, HeaderComponent, NavItem } from '@shared/ui';
 
 @Component({
   selector: 'app-framework',
@@ -10,11 +10,9 @@ import { FooterComponent, HeaderComponent } from '@shared/ui';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FrameworkComponent {
-  protected readonly navItems = [
-    { label: 'Projects', link: '/projects' }
-  ];
+  protected readonly navItems: NavItem[] = [{ label: 'Projects', link: '/projects' }];
 
-  protected readonly footerSections = [
+  protected readonly footerSections: FooterSection[] = [
     {
       title: 'Company',
       links: [
