@@ -1,12 +1,23 @@
 services:
-  backend:
+  webapp:
+    container_name: webapp
+    image: webapp
+    build:
+      context: .
+      dockerfile: apps/web/webapp.dockerfile
+    ports:
+      - '4200:4200'
+    restart: always
+    depends_on:
+      - server
+  server:
     container_name: server
     image: server
     build:
       context: .
       dockerfile: apps/server/server.dockerfile
     ports:
-      - "4000:4000"
+      - '4000:4000'
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres?schema=public
   db:
@@ -18,7 +29,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: postgres
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
 

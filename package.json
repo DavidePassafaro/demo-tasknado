@@ -10,11 +10,13 @@
     "start-docker": "docker compose build",
     "start-db": "docker compose up -d db",
     "stop-db": "docker compose down db",
-    "start-be": "docker compose up -d backend",
-    "stop-be": "docker compose down backend",
-    "init-docker": "npm run start-docker && npm run start-db && npm run start-be",
+    "start-be": "docker compose up -d server",
+    "stop-be": "docker compose down server",
+    "start-fe": "docker compose up -d webapp",
+    "stop-fe": "docker compose down webapp",
+    "init-docker": "npm run start-docker && npm run start-db && npm run start-be && npm run start-fe",
     "migrate-docker": "docker exec -it server npx prisma migrate dev --name init",
-    "prisma-studio": "npx prisma studio"
+    "prisma-studio": "docker exec -it server npx prisma studio"
   },
   "dependencies": {
     "@angular/cdk": "^20.1.0",
