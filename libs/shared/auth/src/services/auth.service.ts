@@ -37,7 +37,7 @@ export class AuthService {
     this.isLoading.set(true);
 
     this.http
-      .get<User>(`${this.apiUrl}api/user/current`, { withCredentials: true })
+      .get<User>(`${this.apiUrl}api/user/current`)
       .pipe(
         tap((user) => {
           this.currentUser.set(user);

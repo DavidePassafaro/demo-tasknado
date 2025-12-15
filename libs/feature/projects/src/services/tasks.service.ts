@@ -18,13 +18,11 @@ export class TasksService {
    * @returns An array of tasks for the specified project
    */
   getTasks(projectId: number): Observable<Task[]> {
-    return this.http
-      .get<Task[]>(`${this.apiUrl}api/tasks/project/${projectId}`, { withCredentials: true })
-      .pipe(
-        tap((response) => {
-          this.#tasks.set(response);
-        })
-      );
+    return this.http.get<Task[]>(`${this.apiUrl}api/tasks/project/${projectId}`).pipe(
+      tap((response) => {
+        this.#tasks.set(response);
+      })
+    );
   }
 
   /**
@@ -32,11 +30,9 @@ export class TasksService {
    * @param task The partial task data to add
    */
   addTask(task: Partial<Task>): void {
-    this.http
-      .post<Task>(`${this.apiUrl}api/tasks`, task, { withCredentials: true })
-      .subscribe((response) => {
-        this.#tasks.set([...this.#tasks(), response]);
-      });
+    this.http.post<Task>(`${this.apiUrl}api/tasks`, task).subscribe((response) => {
+      this.#tasks.set([...this.#tasks(), response]);
+    });
   }
 
   /**
@@ -44,7 +40,7 @@ export class TasksService {
    * @param id The ID of the task
    */
   getTaskById(id: number): Observable<Task> {
-    return this.http.get<Task>(`${this.apiUrl}api/tasks/${id}`, { withCredentials: true });
+    return this.http.get<Task>(`${this.apiUrl}api/tasks/${id}`);
   }
 
   /**
@@ -64,12 +60,10 @@ export class TasksService {
    * @param updates The partial task data to update
    */
   updateTask(id: number, updates: Partial<Task>): void {
-    this.http
-      .put<Task>(`${this.apiUrl}api/tasks/${id}`, updates, { withCredentials: true })
-      .subscribe((updatedTask) => {
-        const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
-        this.#tasks.set(updatedTasks);
-      });
+    this.http.put<Task>(`${this.apiUrl}api/tasks/${id}`, updates).subscribe((updatedTask) => {
+      const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
+      this.#tasks.set(updatedTasks);
+    });
   }
 
   /**
@@ -77,7 +71,7 @@ export class TasksService {
    * @param id The ID of the task to delete
    */
   deleteTask(id: number): void {
-    this.http.delete(`${this.apiUrl}api/tasks/${id}`, { withCredentials: true }).subscribe(() => {
+    this.http.delete(`${this.apiUrl}api/tasks/${id}`).subscribe(() => {
       const updatedTasks = this.#tasks().filter((t) => t.id !== id);
       this.#tasks.set(updatedTasks);
     });

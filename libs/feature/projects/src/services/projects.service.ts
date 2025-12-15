@@ -19,7 +19,7 @@ export class ProjectsService {
    * @return An array of projects
    */
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.apiUrl}api/projects`, { withCredentials: true }).pipe(
+    return this.http.get<Project[]>(`${this.apiUrl}api/projects`).pipe(
       switchMap((projects) =>
         forkJoin<Project[]>(
           projects.map((project) =>
@@ -38,11 +38,9 @@ export class ProjectsService {
    * @param project The partial project data to add
    */
   addProject(project: Partial<Project>): void {
-    this.http
-      .post<Project>(`${this.apiUrl}api/projects`, project, { withCredentials: true })
-      .subscribe((response) => {
-        this.#projects.set([...this.#projects(), response]);
-      });
+    this.http.post<Project>(`${this.apiUrl}api/projects`, project).subscribe((response) => {
+      this.#projects.set([...this.#projects(), response]);
+    });
   }
 
   /**
@@ -51,7 +49,7 @@ export class ProjectsService {
    * @return The project with the specified ID
    */
   getProjectById(id: number): Observable<Project> {
-    return this.http.get<Project>(`${this.apiUrl}api/projects/${id}`, { withCredentials: true });
+    return this.http.get<Project>(`${this.apiUrl}api/projects/${id}`);
   }
 
   /**
@@ -61,7 +59,7 @@ export class ProjectsService {
    */
   updateProject(id: number, updates: Partial<Project>): void {
     this.http
-      .put<Project>(`${this.apiUrl}api/projects/${id}`, updates, { withCredentials: true })
+      .put<Project>(`${this.apiUrl}api/projects/${id}`, updates)
       .subscribe((updatedProject) => {
         const updatedProjects = this.#projects().map((project) =>
           project.id === id ? updatedProject : project
@@ -75,11 +73,9 @@ export class ProjectsService {
    * @param id The ID of the project to delete
    */
   deleteProject(id: number): void {
-    this.http
-      .delete(`${this.apiUrl}api/projects/${id}`, { withCredentials: true })
-      .subscribe(() => {
-        const updatedProjects = this.#projects().filter((p) => p.id !== id);
-        this.#projects.set(updatedProjects);
-      });
+    this.http.delete(`${this.apiUrl}api/projects/${id}`).subscribe(() => {
+      const updatedProjects = this.#projects().filter((p) => p.id !== id);
+      this.#projects.set(updatedProjects);
+    });
   }
 }
