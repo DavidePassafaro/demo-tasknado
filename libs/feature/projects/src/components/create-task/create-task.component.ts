@@ -72,6 +72,7 @@ export class CreateTaskComponent {
       this.taskCreated.emit(taskInput);
       this.taskTitle.set('');
       this.taskDescription.set('');
+      this.isExpanded.set(false);
     }
   }
 

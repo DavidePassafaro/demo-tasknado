@@ -91,6 +91,7 @@ export class CreateProjectComponent {
       this.projectCreated.emit(projectInput);
       this.projectName.set('');
       this.projectDescription.set('');
+      this.isExpanded.set(false);
     }
   }
 
