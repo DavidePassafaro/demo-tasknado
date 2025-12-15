@@ -27,6 +27,7 @@ const AVAILABLE_COLORS = [
 export class CreateProjectComponent {
   initialName = input('');
   initialDescription = input('');
+  initialColor = input('');
   isEditMode = input(false);
 
   projectCreated = output<ProjectInput>();
@@ -44,15 +45,18 @@ export class CreateProjectComponent {
     effect(() => {
       const name = this.initialName();
       const description = this.initialDescription();
+      const color = this.initialColor();
       const editMode = this.isEditMode();
 
       if (editMode) {
         this.projectName.set(name);
         this.projectDescription.set(description);
+        this.selectedColor.set(color || AVAILABLE_COLORS[0]);
         this.isExpanded.set(true);
       } else {
         this.projectName.set('');
         this.projectDescription.set('');
+        this.selectedColor.set(AVAILABLE_COLORS[0]);
         this.isExpanded.set(false);
       }
     });

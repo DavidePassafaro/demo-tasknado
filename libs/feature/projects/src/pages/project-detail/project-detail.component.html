@@ -1,0 +1,64 @@
+<div class="project-detail-container">
+  @if (project()) {
+  <div class="project-detail-header">
+    <button class="back-btn" (click)="goBack()" title="Go back">← Back</button>
+    <h1>{{ project()!.name }}</h1>
+  </div>
+
+  @if (!isEditMode()) {
+  <div class="project-detail-card">
+    <div class="project-color-banner" [style.background]="project()!.color || '#667eea'">
+      <span class="project-badge">Project</span>
+    </div>
+
+    <div class="project-detail-body">
+      <div class="project-section">
+        <h2>Description</h2>
+        @if (project()!.description) {
+        <p class="project-description">{{ project()!.description }}</p>
+        } @else {
+        <p class="no-description">No description provided</p>
+        }
+      </div>
+
+      <div class="project-meta-section">
+        <div class="meta-item">
+          <span class="meta-label">Created</span>
+          <span>{{ project()!.createdAt | date : 'medium' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Last Updated</span>
+          <span>{{ project()!.updatedAt | date : 'medium' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Tasks</span>
+          <span>{{ project()!.tasks.length }}</span>
+        </div>
+      </div>
+
+      <div class="project-actions">
+        <button class="action-btn edit-btn" (click)="startEdit()">✎ Edit</button>
+        <a routerLink="/projects/{{ project()!.id }}/tasks" class="action-btn view-tasks-btn">
+          📋 View Tasks
+        </a>
+        <button class="action-btn delete-btn" (click)="deleteProject()">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+  } @else {
+  <!-- Edit Form using CreateProjectComponent -->
+  <tn-create-project
+    [initialName]="project()!.name"
+    [initialDescription]="project()!.description || ''"
+    [initialColor]="project()!.color || ''"
+    [isEditMode]="true"
+    (projectSaved)="saveEdit($event)"
+    (projectEditCancelled)="cancelEdit()"
+  />
+  } } @else {
+  <div class="no-project">
+    <p>Project not found</p>
+    <button (click)="goBack()">Go Back</button>
+  </div>
+  }
+</div>
