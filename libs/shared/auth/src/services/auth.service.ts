@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, Injector, signal } from '@angular/core';
-import { catchError, filter, map, Observable, of, skip, tap } from 'rxjs';
+import { catchError, filter, map, Observable, of, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { User } from '@shared/models';
-
-const BASE_API_URL = 'http://localhost:4000/';
+import { BASE_API_URL, User } from '@shared/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private readonly apiUrl = inject(BASE_API_URL);
   private readonly http = inject(HttpClient);
   private readonly injector = inject(Injector);
 
@@ -27,13 +26,20 @@ export class AuthService {
   }
 
   /**
+   * Initiates Google authentication flow
+   */
+  loginWithGoogle(): void {
+    window.location.href = `${this.apiUrl}auth/google`;
+  }
+
+  /**
    * Fetches the current authenticated user from the backend
    */
   getCurrentUser(): void {
     this.isLoading.set(true);
 
     this.http
-      .get<User>(`${BASE_API_URL}api/user/current`, { withCredentials: true })
+      .get<User>(`${this.apiUrl}api/user/current`, { withCredentials: true })
       .pipe(
         tap((user) => {
           this.currentUser.set(user);
@@ -46,13 +52,6 @@ export class AuthService {
       .subscribe(() => {
         this.isLoading.set(false);
       });
-  }
-
-  /**
-   * Initiates Google authentication flow
-   */
-  loginWithGoogle(): void {
-    window.location.href = `${BASE_API_URL}auth/google`;
   }
 
   /**
