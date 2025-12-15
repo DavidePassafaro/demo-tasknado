@@ -4,9 +4,7 @@ import { catchError, filter, map, Observable, of, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { BASE_API_URL, User } from '@shared/models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly apiUrl = inject(BASE_API_URL);
   private readonly http = inject(HttpClient);

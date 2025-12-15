@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { Project } from '@shared/models';
-import { Observable, tap } from 'rxjs';
+import { forkJoin, map, Observable, switchMap, tap } from 'rxjs';
 import { BASE_API_URL } from '@shared/models';
+import { TasksService } from './tasks.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ProjectsService {
   private readonly apiUrl = inject(BASE_API_URL);
   private readonly http = inject(HttpClient);
+  private readonly tasksService = inject(TasksService);
 
   #projects = signal<Project[]>([]);
   projects = this.#projects.asReadonly();
@@ -20,9 +20,16 @@ export class ProjectsService {
    */
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.apiUrl}api/projects`, { withCredentials: true }).pipe(
-      tap((response) => {
-        this.#projects.set(response);
-      })
+      switchMap((projects) =>
+        forkJoin<Project[]>(
+          projects.map((project) =>
+            this.tasksService
+              .getTasksByProjectId(project.id)
+              .pipe(map((tasks) => ({ ...project, tasks } as Project)))
+          )
+        )
+      ),
+      tap((response) => this.#projects.set(response))
     );
   }
 
