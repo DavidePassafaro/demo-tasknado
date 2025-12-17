@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'shared-auth',
+  displayName: 'auth',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: '../../../../coverage/libs/shared/auth',
