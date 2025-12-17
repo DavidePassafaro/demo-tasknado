@@ -2,7 +2,7 @@ import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@a
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
 import { EditEntityComponent, EntityInput } from '../../components/edit-entity/edit-entity.component';
-import { TasksService } from '../../services/tasks.service';
+import { TasksService } from '@shared/data-access';
 import { Task } from '@shared/models';
 
 @Component({

@@ -3,6 +3,53 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 module.exports = (app) => {
+  // READ - Leggi tutti i task dell'utente corrente
+  app.get("/api/tasks/user/my-tasks", async (req, res) => {
+    try {
+      // Verifica autenticazione
+      if (!req.user) {
+        return res.status(401).json({ message: "Utente non autenticato" });
+      }
+
+      const userId = req.user.id;
+
+      // Leggi tutti i progetti dell'utente e i loro task
+      const projects = await prisma.project.findMany({
+        where: {
+          creatorId: userId,
+        },
+      });
+
+      const projectIds = projects.map((p) => p.id);
+
+      // Leggi tutti i task dei progetti dell'utente
+      const tasks = await prisma.task.findMany({
+        where: {
+          projectId: {
+            in: projectIds,
+          },
+        },
+        include: {
+          project: {
+            select: {
+              id: true,
+              name: true,
+              color: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+
+      res.status(200).json(tasks);
+    } catch (error) {
+      console.error("Errore nel recupero dei task dell'utente:", error);
+      res.status(500).json({ message: "Errore del server" });
+    }
+  });
+
   // READ - Leggi tutti i task di un progetto
   app.get("/api/tasks/project/:projectId", async (req, res) => {
     try {

@@ -45,12 +45,15 @@ export class TasksService {
    * Updates an existing task in the backend
    * @param id The ID of the task to update
    * @param updates The partial task data to update
+   * @returns The observable of request to update the task
    */
-  updateTask(id: number, updates: Partial<Task>): void {
-    this.http.put<Task>(`${this.apiUrl}api/tasks/${id}`, updates).subscribe((updatedTask) => {
-      const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
-      this.#tasks.set(updatedTasks);
-    });
+  updateTask(id: number, updates: Partial<Task>): Observable<Task> {
+    return this.http.put<Task>(`${this.apiUrl}api/tasks/${id}`, updates).pipe(
+      tap((updatedTask) => {
+        const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
+        this.#tasks.set(updatedTasks);
+      })
+    )
   }
 
   /**

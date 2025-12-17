@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { Project } from '@shared/models';
-import { forkJoin, map, Observable, switchMap, tap } from 'rxjs';
+import { Project, Task } from '@shared/models';
+import { forkJoin, map, Observable, switchMap, tap, of } from 'rxjs';
 import { BASE_API_URL } from '@shared/models';
 import { TasksService } from './tasks.service';
 
@@ -77,5 +77,28 @@ export class ProjectsService {
       const updatedProjects = this.#projects().filter((p) => p.id !== id);
       this.#projects.set(updatedProjects);
     });
+  }
+
+  /**
+   * Fetches all tasks across all projects
+   * @returns An array of tasks
+   */
+  getProjectsTasks(): Observable<Task[]> {
+    return this.getProjects().pipe(
+      switchMap((projects) => {
+        if (projects.length === 0) {
+          // Return empty array if no projects
+          return of([]);
+        }
+
+        // Get tasks from all projects
+        const taskObservables = projects.map((project) =>
+          this.tasksService.getTasksByProjectId(project.id)
+        );
+
+        // Combine all task arrays into a single array
+        return forkJoin(taskObservables).pipe(switchMap((taskArrays) => of(taskArrays.flat())));
+      })
+    );
   }
 }

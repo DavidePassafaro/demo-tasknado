@@ -3,7 +3,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router } from '@angular/router';
 import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { ProjectCardComponent } from '../../components/project-card/project-card.component';
-import { ProjectsService } from '../../services/projects.service';
+import { ProjectsService } from '@shared/data-access';
 import { Project } from '@shared/models';
 
 interface ProjectInput {

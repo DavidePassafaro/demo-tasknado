@@ -1,1 +1,1 @@
-export * from './src/pages/dashboard.routes';
+export * from './pages/dashboard.routes';

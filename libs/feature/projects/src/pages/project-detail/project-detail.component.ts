@@ -2,8 +2,8 @@ import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@a
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
 import { EditEntityComponent } from '../../components/edit-entity/edit-entity.component';
-import { ProjectsService } from '../../services/projects.service';
 import { Project } from '@shared/models';
+import { ProjectsService } from '@shared/data-access';
 
 interface ProjectInput {
   name: string;

@@ -1,8 +1,7 @@
 import { ActivatedRouteSnapshot, ResolveFn, Route } from '@angular/router';
 import { Project, Task } from '@shared/models';
-import { TasksService } from '../services/tasks.service';
+import { TasksService, ProjectsService } from '@shared/data-access';
 import { inject } from '@angular/core';
-import { ProjectsService } from '../services/projects.service';
 
 /**
  * Resolver to fetch all projects before activating the route

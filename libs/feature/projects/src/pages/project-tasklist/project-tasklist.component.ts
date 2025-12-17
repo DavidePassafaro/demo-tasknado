@@ -3,8 +3,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
-import { TasksService } from '../../services/tasks.service';
-import { ProjectsService } from '../../services/projects.service';
+import { TasksService, ProjectsService } from '@shared/data-access';
 import { Project, Task } from '@shared/models';
 
 interface TaskInput {
