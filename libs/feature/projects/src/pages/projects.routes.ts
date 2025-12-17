@@ -1,5 +1,4 @@
 import { ActivatedRouteSnapshot, ResolveFn, Route } from '@angular/router';
-import { Task } from '@shared/models';
 import { inject, Injector } from '@angular/core';
 import { ProjectsFacade, TasksFacade } from '@shared/state-management';
 import { filter, switchMap, take } from 'rxjs';

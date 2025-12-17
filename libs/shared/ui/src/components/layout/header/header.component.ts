@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal, inject, Renderer2 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { NavItem } from './header.model';
+
+const THEME_KEY = 'tn-theme';
 
 @Component({
   selector: 'tn-header',
@@ -16,8 +19,13 @@ export class HeaderComponent implements OnInit {
 
   isMenuOpen = signal(false);
 
+  private renderer = inject(Renderer2);
+  private document = inject(DOCUMENT);
+
   ngOnInit() {
-    document.body.setAttribute('data-theme', 'light');
+    // Load theme from localStorage or default to light
+    const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+    this.renderer.setAttribute(this.document.body, 'data-theme', savedTheme);
   }
 
   /**
@@ -38,13 +46,14 @@ export class HeaderComponent implements OnInit {
    * Toggles between light and dark themes
    */
   protected toggleTheme(): void {
-    const body = document.body;
-    const isDark = body.getAttribute('data-theme') === 'dark';
+    const currentTheme = this.document.body.getAttribute('data-theme');
+    const isDark = currentTheme === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
 
-    if (isDark) {
-      body.setAttribute('data-theme', 'light');
-    } else {
-      body.setAttribute('data-theme', 'dark');
-    }
+    // Update DOM using Renderer2
+    this.renderer.setAttribute(this.document.body, 'data-theme', newTheme);
+
+    // Save to localStorage
+    localStorage.setItem(THEME_KEY, newTheme);
   }
 }
