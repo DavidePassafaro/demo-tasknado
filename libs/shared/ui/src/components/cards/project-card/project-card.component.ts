@@ -1,7 +1,7 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Project } from '@shared/models';
-import { DeleteButtonComponent } from '@shared/ui';
+import { DeleteButtonComponent } from '../../buttons/delete-button/delete-button.component';
 
 @Component({
   selector: 'tn-project-card',

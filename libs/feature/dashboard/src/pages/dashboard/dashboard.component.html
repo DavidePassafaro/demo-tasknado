@@ -85,111 +85,45 @@
 
   <!-- Loading State -->
   @if (isLoading()) {
-    <div class="loading-state">
-      <p>Loading your tasks...</p>
-    </div>
+  <div class="loading-state">
+    <p>Loading your tasks...</p>
+  </div>
   }
 
   <!-- Error State -->
   @if (error()) {
-    <div class="error-state">
-      <p>{{ error() }}</p>
-    </div>
+  <div class="error-state">
+    <p>{{ error() }}</p>
+  </div>
   }
 
   <!-- Empty State -->
   @if (!isLoading() && !error() && filteredTasks().length === 0) {
-    <div class="empty-state">
-      <p>
-        @if (searchTerm() || statusFilter()) {
-          No tasks match your filters. Try adjusting your search.
-        } @else {
-          No tasks found. Create your first task in a project!
-        }
-      </p>
-    </div>
+  <div class="empty-state">
+    <p>
+      @if (searchTerm() || statusFilter()) { No tasks match your filters. Try adjusting your search.
+      } @else { No tasks found. Create your first task in a project! }
+    </p>
+  </div>
   }
 
   <!-- Tasks List -->
   @if (!isLoading() && !error() && filteredTasks().length > 0) {
-    <div class="tasks-section">
-      <div class="tasks-header">
-        <h2>Tasks ({{ filteredTasks().length }})</h2>
-        <span class="tasks-subtitle">{{ statistics().completionRate }}% complete</span>
-      </div>
-      
-      <!-- Progress Bar -->
-      <div class="progress-container">
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" [style.width.%]="statistics().completionRate"></div>
+  <div class="tasks-section">
+    <h2>Tasks ({{ filteredTasks().length }})</h2>
+
+    <cdk-virtual-scroll-viewport [itemSize]="121" class="tasks-virtual-scroll">
+      <div class="tasks-vertical">
+        <div *cdkVirtualFor="let task of filteredTasks(); trackBy: trackByTaskId">
+          <tn-task-card
+            [task]="task"
+            (taskDeleted)="deleteTask($event)"
+            (taskToggled)="toggleTask($event)"
+            (taskSelected)="onTaskSelected($event)"
+          />
         </div>
       </div>
-
-      <cdk-virtual-scroll-viewport [itemSize]="100" class="tasks-list">
-        @for (task of filteredTasks(); track task.id) {
-          <div class="task-card" [ngClass]="getStatusClass(task.status)">
-            <!-- Status Indicator -->
-            <div class="status-indicator" [ngClass]="getStatusClass(task.status)"></div>
-            
-            <div class="task-content">
-              <div class="task-header">
-                <div class="task-title-section">
-                  <h3>{{ task.title }}</h3>
-                  <span class="status-badge" [ngClass]="getStatusClass(task.status)">
-                    {{ task.status | uppercase }}
-                  </span>
-                </div>
-              </div>
-              
-              @if (task.description) {
-                <p class="task-description">{{ task.description }}</p>
-              }
-              
-              <div class="task-meta">
-                <div class="meta-left">
-                  <span class="project-tag" [style.backgroundColor]="'#6366f1'">
-                    <span class="icon">📋</span>
-                    Project #{{ task.projectId }}
-                  </span>
-                  <span class="date-tag">
-                    <span class="icon">📅</span>
-                    {{ task.createdAt | date: 'MMM d, y' }}
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="task-actions">
-              <button
-                class="action-btn toggle-btn"
-                [title]="task.status === 'completed' ? 'Mark as incomplete' : 'Mark as complete'"
-                [attr.aria-label]="task.status === 'completed' ? 'Mark as incomplete' : 'Mark as complete'"
-                (click)="toggleTask(task.id)"
-              >
-                <span class="btn-icon">{{ task.status === 'completed' ? '✓' : '○' }}</span>
-              </button>
-              <button
-                class="action-btn view-btn"
-                title="View task details"
-                aria-label="View task details"
-                (click)="goToProject(task)"
-              >
-                <span class="btn-icon">→</span>
-              </button>
-              <button
-                class="action-btn delete-btn"
-                title="Delete task"
-                aria-label="Delete task"
-                (click)="deleteTask(task.id)"
-              >
-                <span class="btn-icon">🗑</span>
-              </button>
-            </div>
-          </div>
-        }
-      </cdk-virtual-scroll-viewport>
-    </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
   }
 </div>
-
-

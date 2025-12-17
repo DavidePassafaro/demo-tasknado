@@ -1,7 +1,7 @@
 import { Component, input, output, ChangeDetectionStrategy, computed } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Task } from '@shared/models';
-import { DeleteButtonComponent } from '@shared/ui';
+import { DeleteButtonComponent } from '../../buttons/delete-button/delete-button.component';
 
 @Component({
   selector: 'tn-task-card',

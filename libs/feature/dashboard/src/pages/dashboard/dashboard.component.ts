@@ -2,16 +2,15 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
-  computed,
   OnInit,
   signal,
   OnDestroy,
   Injector,
 } from '@angular/core';
-import { DatePipe, NgClass, UpperCasePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { TasksService, ProjectsService } from '@shared/data-access';
+import { TaskCardComponent } from '@shared/ui';
 import { Task } from '@shared/models';
 import {
   Subject,
@@ -40,7 +39,7 @@ interface TaskStatistics {
   selector: 'tn-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  imports: [ScrollingModule, DatePipe, UpperCasePipe, NgClass],
+  imports: [ScrollingModule, TaskCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
@@ -194,7 +193,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (tasks) => {
           this.isLoading.set(false);
-          console.log('Loaded tasks:', tasks);
           this.tasks.set(tasks);
         },
         error: (err: unknown) => {
@@ -274,6 +272,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Handles task selected from task card
+   * @param task The selected task
+   */
+  protected onTaskSelected(task: Task): void {
+    if (task.projectId) {
+      this.router.navigate(['/projects', task.projectId, 'task', task.id]);
+    }
+  }
+
+  /**
    * Toggles the completion status of a task
    * @param id The ID of the task to toggle
    */
@@ -300,9 +308,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
    * @param id The ID of the task to delete
    */
   protected deleteTask(id: number): void {
-    if (confirm('Are you sure you want to delete this task?')) {
-      this.tasksService.deleteTask(id);
-    }
+    this.tasksService.deleteTask(id);
   }
 
   /**
@@ -312,5 +318,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
    */
   protected getStatusClass(status: string): string {
     return `status-${status}`;
+  }
+
+  /**
+   * Track by function for virtual scroll optimization
+   * @param index The index of the task
+   * @param task The task object
+   * @returns The task ID for tracking
+   */
+  protected trackByTaskId(index: number, task: Task): number {
+    return task.id;
   }
 }

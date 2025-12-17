@@ -2,7 +2,7 @@ import { Component, inject, computed, ChangeDetectionStrategy, signal } from '@a
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
-import { TaskCardComponent } from '../../components/task-card/task-card.component';
+import { TaskCardComponent } from '@shared/ui';
 import { TasksService, ProjectsService } from '@shared/data-access';
 import { Project, Task } from '@shared/models';
 
