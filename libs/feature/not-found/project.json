@@ -4,7 +4,7 @@
   "sourceRoot": "libs/feature/not-found/src",
   "prefix": "tn",
   "projectType": "library",
-  "tags": ["type:feature", "feature"],
+  "tags": ["type:feature"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",

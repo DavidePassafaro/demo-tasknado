@@ -4,7 +4,7 @@
   "sourceRoot": "libs/shared/data-access/src",
   "prefix": "tn",
   "projectType": "library",
-  "tags": [],
+  "tags": ["type:shared"],
   "targets": {
     "test": {
       "executor": "@nx/jest:jest",
