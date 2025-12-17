@@ -37,10 +37,10 @@ export class ProjectsService {
    * Adds a new project to the backend
    * @param project The partial project data to add
    */
-  addProject(project: Partial<Project>): void {
-    this.http.post<Project>(`${this.apiUrl}api/projects`, project).subscribe((response) => {
-      this.#projects.set([...this.#projects(), response]);
-    });
+  createProject(project: Partial<Project>): Observable<Project> {
+    return this.http.post<Project>(`${this.apiUrl}api/projects`, project).pipe(
+      tap((response) => this.#projects.set([...this.#projects(), response]))
+    );
   }
 
   /**
@@ -57,26 +57,30 @@ export class ProjectsService {
    * @param id The ID of the project to update
    * @param updates The partial project data to update
    */
-  updateProject(id: number, updates: Partial<Project>): void {
-    this.http
+  updateProject(id: number, updates: Partial<Project>): Observable<Project> {
+    return this.http
       .put<Project>(`${this.apiUrl}api/projects/${id}`, updates)
-      .subscribe((updatedProject) => {
-        const updatedProjects = this.#projects().map((project) =>
-          project.id === id ? updatedProject : project
-        );
-        this.#projects.set(updatedProjects);
-      });
+      .pipe(
+        tap((updatedProject) => {
+          const updatedProjects = this.#projects().map((project) =>
+            project.id === id ? updatedProject : project
+          );
+          this.#projects.set(updatedProjects);
+        })
+      );
   }
 
   /**
    * Deletes a project from the backend
    * @param id The ID of the project to delete
    */
-  deleteProject(id: number): void {
-    this.http.delete(`${this.apiUrl}api/projects/${id}`).subscribe(() => {
-      const updatedProjects = this.#projects().filter((p) => p.id !== id);
-      this.#projects.set(updatedProjects);
-    });
+  deleteProject(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}api/projects/${id}`).pipe(
+      tap(() => {
+        const updatedProjects = this.#projects().filter((p) => p.id !== id);
+        this.#projects.set(updatedProjects);
+      })
+    );
   }
 
   /**

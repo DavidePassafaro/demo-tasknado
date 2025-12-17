@@ -23,6 +23,29 @@ export class TasksService {
   }
 
   /**
+   * Creates a new task via Observable
+   * @param task The partial task data to create
+   * @returns Observable of the created task
+   */
+  createTask(task: Partial<Task>): Observable<Task> {
+    return this.http.post<Task>(`${this.apiUrl}api/tasks`, task).pipe(
+      tap((response) => {
+        this.#tasks.set([...this.#tasks(), response]);
+      })
+    );
+  }
+
+  /**
+   * Fetches all tasks from the backend
+   * @returns Observable of all tasks
+   */
+  getTasks(): Observable<Task[]> {
+    return this.http
+      .get<Task[]>(`${this.apiUrl}api/tasks`)
+      .pipe(tap((response) => this.#tasks.set(response)));
+  }
+
+  /**
    * Fetches a task by its ID from the backend
    * @param id The ID of the task
    */
@@ -54,6 +77,20 @@ export class TasksService {
         this.#tasks.set(updatedTasks);
       })
     )
+  }
+
+  /**
+   * Deletes a task from the backend
+   * @param id The ID of the task to delete
+   * @returns Observable of the delete operation
+   */
+  deleteTaskObservable(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}api/tasks/${id}`).pipe(
+      tap(() => {
+        const updatedTasks = this.#tasks().filter((t) => t.id !== id);
+        this.#tasks.set(updatedTasks);
+      })
+    );
   }
 
   /**

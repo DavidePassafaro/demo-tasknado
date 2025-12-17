@@ -15,6 +15,7 @@
       "@shared/auth": ["libs/shared/auth/src/index.ts"],
       "@shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@shared/models": ["libs/shared/models/src/index.ts"],
+      "@shared/state-management": ["libs/shared/state-management/src/index.ts"],
       "@shared/ui": ["libs/shared/ui/src/index.ts"],
       "@shared/ui/charts": ["libs/shared/ui/src/components/charts/index.ts"],
     }

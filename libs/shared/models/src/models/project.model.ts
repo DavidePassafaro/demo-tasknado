@@ -10,3 +10,5 @@ export interface Project {
   updatedAt: Date;
   tasks: Task[];
 }
+
+export type ProjectInput = Pick<Project, 'name' | 'description'>;

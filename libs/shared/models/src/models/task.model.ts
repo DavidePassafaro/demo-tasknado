@@ -8,3 +8,5 @@ export interface Task {
   dueDate?: Date;
   projectId: number;
 }
+
+export type TaskInput = Pick<Task, 'title' | 'description'>;
