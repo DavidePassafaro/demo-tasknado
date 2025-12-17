@@ -85,22 +85,4 @@ export const tasksReducer = createReducer(
     loading: false,
     error,
   })),
-
-  // Load Tasks By Project
-  on(TasksApiActions.loadTasksByProject, (state, { projectId }) => ({
-    ...state,
-    currentProjectId: projectId,
-    loading: true,
-    error: null,
-  })),
-  on(TasksApiActions.loadTasksByProjectSuccess, (state, { tasks }) => ({
-    ...state,
-    tasks,
-    loading: false,
-  })),
-  on(TasksApiActions.loadTasksByProjectError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    error,
-  }))
 );
