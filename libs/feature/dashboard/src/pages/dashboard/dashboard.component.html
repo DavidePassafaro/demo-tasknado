@@ -8,10 +8,6 @@
   <!-- Stats Cards -->
   <div class="stats-grid">
     <div class="stat-card">
-      <div class="stat-value">{{ statistics().todo }}</div>
-      <div class="stat-label">To Do</div>
-    </div>
-    <div class="stat-card">
       <div class="stat-value">{{ statistics().inProgress }}</div>
       <div class="stat-label">In Progress</div>
     </div>
@@ -26,10 +22,6 @@
     <div class="stat-card">
       <div class="stat-value">{{ statistics().completionRate }}%</div>
       <div class="stat-label">Completion Rate</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-value">{{ statistics().averageTasksPerDay }}</div>
-      <div class="stat-label">Tasks/Day (avg)</div>
     </div>
   </div>
 
@@ -118,7 +110,7 @@
           <tn-task-card
             [task]="task"
             (taskDeleted)="deleteTask($event)"
-            (taskToggled)="toggleTask($event)"
+            (taskToggled)="toggleTaskStatus($event)"
             (taskSelected)="onTaskSelected($event)"
           />
         </div>
