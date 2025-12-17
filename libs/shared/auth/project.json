@@ -1,5 +1,5 @@
 {
-  "name": "feature-auth",
+  "name": "auth",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/shared/auth/src",
   "prefix": "tn",

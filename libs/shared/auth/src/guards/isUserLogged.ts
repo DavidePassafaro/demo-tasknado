@@ -1,7 +1,7 @@
 import { CanActivateFn, RedirectCommand, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 
 /**
  * Guard to check if the user is logged in
@@ -29,7 +29,7 @@ export const isUserNotLogged: CanActivateFn = () => {
   const router = inject(Router);
   return authService.getCurrentUser$().pipe(
     map((user) => {
-      if (!!user) {
+      if (user) {
         const homePath = router.parseUrl('/dashboard');
         return new RedirectCommand(homePath);
       }

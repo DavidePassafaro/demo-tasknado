@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TasksFacade, ProjectsFacade } from '@shared/state-management';
+import { TasksFacade } from '@shared/state-management';
 import { TaskCardComponent } from '@shared/ui';
 import { Task } from '@shared/models';
 import {
@@ -143,18 +143,6 @@ export class DashboardComponent implements OnInit {
         this.isLoading.set(false);
       },
     });
-  }
-
-  /**
-   * Calculate average tasks created per day
-   * @param tasks Array of tasks
-   * @returns Average number of tasks per day
-   */
-  private calculateAverageTasksPerDay(tasks: Task[]): number {
-    if (tasks.length === 0) return 0;
-
-    const dates = new Set(tasks.map((t) => new Date(t.createdAt).toDateString()));
-    return parseFloat((tasks.length / dates.size).toFixed(2));
   }
 
   /**

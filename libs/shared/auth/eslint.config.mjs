@@ -1,32 +1,34 @@
-{
-  "extends": "../../../../eslint.config.mjs",
-  "overrides": [
-    {
-      "files": ["*.ts"],
-      "rules": {
-        "@nx/enforce-module-boundaries": [
-          "error",
-          {
-            "enforceBoundaryConstraints": true,
-            "allow": [],
-            "depConstraints": [
-              {
-                "sourceTag": "*",
-                "onlyDependOnLibsWithTags": ["*"]
-              }
-            ]
-          }
-        ]
-      },
-      "extends": [
-        "plugin:@nx/typescript"
-      ]
+import nx from '@nx/eslint-plugin';
+import baseConfig from '../../../eslint.config.mjs';
+
+export default [
+  ...baseConfig,
+  ...nx.configs['flat/angular'],
+  ...nx.configs['flat/angular-template'],
+  {
+    files: ['**/*.ts'],
+    rules: {
+      '@angular-eslint/directive-selector': [
+        'error',
+        {
+          type: 'attribute',
+          prefix: 'tn',
+          style: 'camelCase',
+        },
+      ],
+      '@angular-eslint/component-selector': [
+        'error',
+        {
+          type: 'element',
+          prefix: 'tn',
+          style: 'kebab-case',
+        },
+      ],
     },
-    {
-      "files": ["*.html"],
-      "extends": [
-        "plugin:@nx/angular-template"
-      ]
-    }
-  ]
-}
+  },
+  {
+    files: ['**/*.html'],
+    // Override or add rules here
+    rules: {},
+  },
+];
