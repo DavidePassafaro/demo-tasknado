@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TasksService, ProjectsService } from '@shared/data-access';
+import { TasksFacade, ProjectsFacade } from '@shared/state-management';
 import { TaskCardComponent } from '@shared/ui';
 import { Task } from '@shared/models';
 import {
@@ -11,9 +11,9 @@ import {
   map,
   startWith,
   shareReplay,
-  tap,
 } from 'rxjs';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { ProjectsService } from '@shared/data-access';
 
 interface TaskStatistics {
   total: number;
@@ -31,7 +31,7 @@ interface TaskStatistics {
 })
 export class DashboardComponent implements OnInit {
   private router = inject(Router);
-  private tasksService = inject(TasksService);
+  private tasksFacade = inject(TasksFacade);
   private projectsService = inject(ProjectsService);
 
   protected isLoading = signal(false);
@@ -132,25 +132,14 @@ export class DashboardComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.loadUserTasks();
-  }
-
-  /**
-   * Loads all tasks for the current user
-   */
-  private loadUserTasks(): void {
-    this.isLoading.set(true);
-    this.error.set(null);
-
-    this.projectsService.getProjectsTasks().subscribe({
+    // Load all data on init
+    this.projectsService.getAllProjectsTasks().subscribe({
       next: (tasks) => {
         this.tasks.set(tasks);
+        this.isLoading.set(false);
       },
       error: (err) => {
-        this.error.set('Failed to load tasks. Please try again.');
-        console.error('Error loading tasks:', err);
-      },
-      complete: () => {
+        this.error.set(err.message || 'Failed to load tasks');
         this.isLoading.set(false);
       },
     });
@@ -213,17 +202,7 @@ export class DashboardComponent implements OnInit {
     const task = this.tasks().find((t) => t.id === id);
     if (task) {
       const newStatus = task.status === 'completed' ? 'todo' : 'completed';
-      this.tasksService
-        .updateTask(id, { status: newStatus })
-        .pipe(
-          tap(() => {
-            const updatedTasks = this.tasks().map((t) =>
-              t.id === id ? { ...t, status: newStatus } : t
-            );
-            this.tasks.set(updatedTasks);
-          })
-        )
-        .subscribe();
+      this.tasksFacade.updateTask(id, { status: newStatus });
     }
   }
 
@@ -240,7 +219,7 @@ export class DashboardComponent implements OnInit {
    * @param id The ID of the task to delete
    */
   protected deleteTask(id: number): void {
-    this.tasksService.deleteTask(id);
+    this.tasksFacade.deleteTask(id);
   }
 
   /**

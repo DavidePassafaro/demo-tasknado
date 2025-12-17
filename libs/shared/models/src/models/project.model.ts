@@ -11,4 +11,6 @@ export interface Project {
   tasks: Task[];
 }
 
-export type ProjectInput = Pick<Project, 'name' | 'description'>;
+export type ProjectInput = Pick<Project, 'name' | 'description' | 'color'>;
+
+export type ProjectUpdate = Partial<Omit<Project, 'id' | 'creatorId' | 'createdAt' | 'updatedAt' | 'tasks'>>;

@@ -2,14 +2,8 @@ import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@a
 import { Router, ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
 import { EditEntityComponent } from '../../components/edit-entity/edit-entity.component';
-import { Project } from '@shared/models';
-import { ProjectsService } from '@shared/data-access';
-
-interface ProjectInput {
-  name: string;
-  description: string;
-  color?: string;
-}
+import { Project, ProjectInput } from '@shared/models';
+import { ProjectsFacade } from '@shared/state-management';
 
 @Component({
   selector: 'tn-project-detail',
@@ -21,7 +15,7 @@ interface ProjectInput {
 export class ProjectDetailComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private projectsService = inject(ProjectsService);
+  private projectsFacade = inject(ProjectsFacade);
 
   protected projectId = signal<number>(0);
   protected isEditMode = signal(false);
@@ -57,7 +51,7 @@ export class ProjectDetailComponent {
   protected saveEdit(projectInput: ProjectInput): void {
     const currentProject = this.project();
     if (currentProject) {
-      this.projectsService.updateProject(currentProject.id, {
+      this.projectsFacade.updateProject(currentProject.id, {
         name: projectInput.name,
         description: projectInput.description,
         color: projectInput.color,
@@ -79,7 +73,7 @@ export class ProjectDetailComponent {
   protected deleteProject(): void {
     const currentProject = this.project();
     if (currentProject && confirm('Are you sure you want to delete this project?')) {
-      this.projectsService.deleteProject(currentProject.id);
+      this.projectsFacade.deleteProject(currentProject.id);
       this.router.navigate(['/projects']);
     }
   }
@@ -91,7 +85,7 @@ export class ProjectDetailComponent {
   private getProject(): Project | null {
     const id = this.projectId();
     if (!id) return null;
-    const project = this.projectsService.projects().find((p) => p.id === id);
+    const project = this.projectsFacade.projects().find((p) => p.id === id);
     return project || null;
   }
 }

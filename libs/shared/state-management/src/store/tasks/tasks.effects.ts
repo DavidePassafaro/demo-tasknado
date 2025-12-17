@@ -13,9 +13,9 @@ export class TasksEffects {
   loadTasks$ = createEffect(() =>
     this.actions$.pipe(
       ofType(TasksApiActions.loadTasks),
-      switchMap(() =>
-        this.tasksService.getTasks().pipe(
-          map((tasks) => TasksApiActions.loadTasksSuccess({ tasks })),
+      switchMap(({ projectId }) =>
+        this.tasksService.getTasksByProjectId(projectId).pipe(
+          map((tasks) => TasksApiActions.loadTasksSuccess({ tasks, projectId })),
           catchError((error) => of(TasksApiActions.loadTasksError({ error: error.message })))
         )
       )
@@ -26,7 +26,7 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(TasksApiActions.createTask),
       switchMap(({ task }) =>
-        this.tasksService.createTask(task).pipe(
+        this.tasksService.addTask(task).pipe(
           map((createdTask) => TasksApiActions.createTaskSuccess({ task: createdTask })),
           catchError((error) => of(TasksApiActions.createTaskError({ error: error.message })))
         )
@@ -50,7 +50,7 @@ export class TasksEffects {
     this.actions$.pipe(
       ofType(TasksApiActions.deleteTask),
       switchMap(({ id }) =>
-        this.tasksService.deleteTaskObservable(id).pipe(
+        this.tasksService.deleteTask(id).pipe(
           map(() => TasksApiActions.deleteTaskSuccess({ id })),
           catchError((error) => of(TasksApiActions.deleteTaskError({ error: error.message })))
         )

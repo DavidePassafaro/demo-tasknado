@@ -13,29 +13,6 @@ export class TasksService {
   tasks = this.#tasks.asReadonly();
 
   /**
-   * Adds a new task to the backend
-   * @param task The partial task data to add
-   */
-  addTask(task: Partial<Task>): void {
-    this.http.post<Task>(`${this.apiUrl}api/tasks`, task).subscribe((response) => {
-      this.#tasks.set([...this.#tasks(), response]);
-    });
-  }
-
-  /**
-   * Creates a new task via Observable
-   * @param task The partial task data to create
-   * @returns Observable of the created task
-   */
-  createTask(task: Partial<Task>): Observable<Task> {
-    return this.http.post<Task>(`${this.apiUrl}api/tasks`, task).pipe(
-      tap((response) => {
-        this.#tasks.set([...this.#tasks(), response]);
-      })
-    );
-  }
-
-  /**
    * Fetches all tasks from the backend
    * @returns Observable of all tasks
    */
@@ -65,6 +42,19 @@ export class TasksService {
   }
 
   /**
+   * Creates a new task via Observable
+   * @param task The partial task data to create
+   * @returns Observable of the created task
+   */
+  addTask(task: Partial<Task>): Observable<Task> {
+    return this.http.post<Task>(`${this.apiUrl}api/tasks`, task).pipe(
+      tap((response) => {
+        this.#tasks.set([...this.#tasks(), response]);
+      })
+    );
+  }
+
+  /**
    * Updates an existing task in the backend
    * @param id The ID of the task to update
    * @param updates The partial task data to update
@@ -76,7 +66,7 @@ export class TasksService {
         const updatedTasks = this.#tasks().map((task) => (task.id === id ? updatedTask : task));
         this.#tasks.set(updatedTasks);
       })
-    )
+    );
   }
 
   /**
@@ -84,24 +74,13 @@ export class TasksService {
    * @param id The ID of the task to delete
    * @returns Observable of the delete operation
    */
-  deleteTaskObservable(id: number): Observable<void> {
+  deleteTask(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}api/tasks/${id}`).pipe(
       tap(() => {
         const updatedTasks = this.#tasks().filter((t) => t.id !== id);
         this.#tasks.set(updatedTasks);
       })
     );
-  }
-
-  /**
-   * Deletes a task from the backend
-   * @param id The ID of the task to delete
-   */
-  deleteTask(id: number): void {
-    this.http.delete(`${this.apiUrl}api/tasks/${id}`).subscribe(() => {
-      const updatedTasks = this.#tasks().filter((t) => t.id !== id);
-      this.#tasks.set(updatedTasks);
-    });
   }
 
   /**

@@ -1,16 +1,11 @@
-import { Component, inject, computed, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router } from '@angular/router';
 import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { ProjectCardComponent } from '@shared/ui';
-import { ProjectsService } from '@shared/data-access';
+import { ProjectsFacade } from '@shared/state-management';
 import { Project } from '@shared/models';
-
-interface ProjectInput {
-  name: string;
-  description: string;
-  color?: string;
-}
+import { EntityInput } from '../../components/edit-entity/edit-entity.component';
 
 @Component({
   selector: 'tn-projects',
@@ -21,22 +16,18 @@ interface ProjectInput {
 })
 export class Projects {
   private router = inject(Router);
-  private projectsService = inject(ProjectsService);
+  private projectsFacade = inject(ProjectsFacade);
 
-  projects = computed(() => this.projectsService.projects());
-  nextId = 1;
+  projects = this.projectsFacade.projects;
+  loading = this.projectsFacade.loading;
+  error = this.projectsFacade.error;
 
   /**
    * Handles the creation of a new project
    * @param projectInput The input data for the new project
    */
-  protected onProjectCreated(projectInput: ProjectInput): void {
-    const newProject: Partial<Project> = {
-      name: projectInput.name,
-      description: projectInput.description,
-      color: projectInput.color,
-    };
-    this.projectsService.addProject(newProject);
+  protected onProjectCreated(projectInput: EntityInput): void {
+    this.projectsFacade.createProject(projectInput);
   }
 
   /**
@@ -44,7 +35,7 @@ export class Projects {
    * @param id The ID of the project to delete
    */
   protected deleteProject(id: number): void {
-    this.projectsService.deleteProject(id);
+    this.projectsFacade.deleteProject(id);
   }
 
   /**

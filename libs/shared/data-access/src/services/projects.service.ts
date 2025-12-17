@@ -34,16 +34,6 @@ export class ProjectsService {
   }
 
   /**
-   * Adds a new project to the backend
-   * @param project The partial project data to add
-   */
-  createProject(project: Partial<Project>): Observable<Project> {
-    return this.http.post<Project>(`${this.apiUrl}api/projects`, project).pipe(
-      tap((response) => this.#projects.set([...this.#projects(), response]))
-    );
-  }
-
-  /**
    * Fetches a project by its ID from the backend
    * @param id The ID of the project
    * @return The project with the specified ID
@@ -53,21 +43,29 @@ export class ProjectsService {
   }
 
   /**
+   * Adds a new project to the backend
+   * @param project The partial project data to add
+   */
+  createProject(project: Partial<Project>): Observable<Project> {
+    return this.http
+      .post<Project>(`${this.apiUrl}api/projects`, project)
+      .pipe(tap((response) => this.#projects.set([...this.#projects(), response])));
+  }
+
+  /**
    * Updates an existing project in the backend
    * @param id The ID of the project to update
    * @param updates The partial project data to update
    */
   updateProject(id: number, updates: Partial<Project>): Observable<Project> {
-    return this.http
-      .put<Project>(`${this.apiUrl}api/projects/${id}`, updates)
-      .pipe(
-        tap((updatedProject) => {
-          const updatedProjects = this.#projects().map((project) =>
-            project.id === id ? updatedProject : project
-          );
-          this.#projects.set(updatedProjects);
-        })
-      );
+    return this.http.put<Project>(`${this.apiUrl}api/projects/${id}`, updates).pipe(
+      tap((updatedProject) => {
+        const updatedProjects = this.#projects().map((project) =>
+          project.id === id ? updatedProject : project
+        );
+        this.#projects.set(updatedProjects);
+      })
+    );
   }
 
   /**
@@ -87,7 +85,7 @@ export class ProjectsService {
    * Fetches all tasks across all projects
    * @returns An array of tasks
    */
-  getProjectsTasks(): Observable<Task[]> {
+  getAllProjectsTasks(): Observable<Task[]> {
     return this.getProjects().pipe(
       switchMap((projects) => {
         if (projects.length === 0) {

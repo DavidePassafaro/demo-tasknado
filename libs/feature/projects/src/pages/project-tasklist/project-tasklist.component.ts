@@ -3,13 +3,9 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CreateEntityComponent } from '../../components/create-entity/create-entity.component';
 import { TaskCardComponent } from '@shared/ui';
-import { TasksService, ProjectsService } from '@shared/data-access';
+import { TasksFacade, ProjectsFacade } from '@shared/state-management';
 import { Project, Task } from '@shared/models';
-
-interface TaskInput {
-  name: string;
-  description: string;
-}
+import { EntityInput } from '../../components/edit-entity/edit-entity.component';
 
 @Component({
   selector: 'tn-project-tasklist',
@@ -21,19 +17,22 @@ interface TaskInput {
 export class ProjectTasklistComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private tasksService = inject(TasksService);
-  private projectsService = inject(ProjectsService);
+  private tasksFacade = inject(TasksFacade);
+  private projectsFacade = inject(ProjectsFacade);
 
   protected projectId = signal<number>(0);
   protected project = computed(() => this.getProject());
 
-  protected tasks = computed(() => this.tasksService.tasks());
+  protected tasks = computed(() => this.tasksFacade.tasks());
 
   constructor() {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       const projectId = parseInt(idParam, 10);
-      if (!isNaN(projectId)) this.projectId.set(projectId);
+      if (!isNaN(projectId)) {
+        this.projectId.set(projectId);
+        this.tasksFacade.loadTasks(projectId);
+      }
     }
   }
 
@@ -41,8 +40,8 @@ export class ProjectTasklistComponent {
    * Handles the creation of a new task
    * @param taskInput The input data for the new task
    */
-  protected onTaskCreated(taskInput: TaskInput): void {
-    this.tasksService.addTask({
+  protected onTaskCreated(taskInput: EntityInput): void {
+    this.tasksFacade.createTask({
       title: taskInput.name,
       description: taskInput.description,
       projectId: this.projectId(),
@@ -54,7 +53,7 @@ export class ProjectTasklistComponent {
    * @param id The ID of the task to delete
    */
   protected deleteTask(id: number): void {
-    this.tasksService.deleteTask(id);
+    this.tasksFacade.deleteTask(id);
   }
 
   /**
@@ -62,9 +61,9 @@ export class ProjectTasklistComponent {
    * @param id The ID of the task to toggle
    */
   protected toggleTask(id: number): void {
-    const task = this.tasksService.getTask(id);
+    const task = this.tasksFacade.selectTaskById(id)();
     if (task) {
-      this.tasksService.updateTask(id, { status: 'completed' });
+      this.tasksFacade.updateTask(id, { status: 'completed' });
     }
   }
 
@@ -95,6 +94,6 @@ export class ProjectTasklistComponent {
 
     if (!id) return null;
 
-    return this.projectsService.projects().find((p) => p.id === id) || null;
+    return this.projectsFacade.projects().find((p) => p.id === id) || null;
   }
 }

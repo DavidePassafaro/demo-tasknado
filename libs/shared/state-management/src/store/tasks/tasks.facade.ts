@@ -2,7 +2,7 @@ import { Injectable, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { TasksApiActions } from './tasks.actions';
 import * as TasksSelectors from './tasks.selectors';
-import { TaskInput } from '@shared/models';
+import { TaskInput, TaskUpdate } from '@shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class TasksFacade {
@@ -18,15 +18,15 @@ export class TasksFacade {
   readonly hasError = computed(() => this.error() !== null);
 
   // Actions
-  loadTasks() {
-    this.store.dispatch(TasksApiActions.loadTasks());
+  loadTasks(projectId: number) {
+    this.store.dispatch(TasksApiActions.loadTasks({ projectId }));
   }
 
   createTask(task: TaskInput) {
     this.store.dispatch(TasksApiActions.createTask({ task }));
   }
 
-  updateTask(id: number, changes: Partial<TaskInput>) {
+  updateTask(id: number, changes: TaskUpdate) {
     this.store.dispatch(TasksApiActions.updateTask({ id, changes }));
   }
 

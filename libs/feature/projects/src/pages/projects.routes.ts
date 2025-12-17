@@ -1,26 +1,48 @@
 import { ActivatedRouteSnapshot, ResolveFn, Route } from '@angular/router';
-import { Project, Task } from '@shared/models';
-import { TasksService, ProjectsService } from '@shared/data-access';
-import { inject } from '@angular/core';
+import { Task } from '@shared/models';
+import { inject, Injector } from '@angular/core';
+import { ProjectsFacade, TasksFacade } from '@shared/state-management';
+import { filter, switchMap, take } from 'rxjs';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 /**
- * Resolver to fetch all projects before activating the route
- * @returns An array of projects
+ * Resolver to fetch all projects before activating the route using ProjectsFacade
+ * @returns An observable of projects array
  */
-const projectsResolver: ResolveFn<Project[]> = () => {
-  const projectsService = inject(ProjectsService);
-  return projectsService.getProjects();
+const projectsResolver: ResolveFn<boolean> = () => {
+  const projectsFacade = inject(ProjectsFacade);
+  const injector = inject(Injector);
+
+  // Load projects via facade
+  projectsFacade.loadProjects();
+
+  // Wait until loading is complete
+  return toObservable(projectsFacade.projects, { injector }).pipe(
+    switchMap(() => toObservable(projectsFacade.loading, { injector })),
+    filter((loading) => !loading),
+    take(1)
+  );
 };
 
 /**
- * Resolver to fetch tasks for a specific project before activating the route
+ * Resolver to fetch tasks for a specific project before activating the route using TasksFacade
  * @param route The activated route snapshot
- * @returns An array of tasks for the specified project
+ * @returns An observable that completes when tasks are loaded
  */
-const projectTasksResolver: ResolveFn<Task[]> = (route: ActivatedRouteSnapshot) => {
-  const tasksService = inject(TasksService);
+const projectTasksResolver: ResolveFn<boolean> = (route: ActivatedRouteSnapshot) => {
+  const tasksFacade = inject(TasksFacade);
+  const injector = inject(Injector);
+
+  // Load tasks for the specific project via facade
   const projectId = route.paramMap.get('id') || '';
-  return tasksService.getTasksByProjectId(+projectId);
+  tasksFacade.loadTasks(+projectId);
+
+  // Wait until loading is complete
+  return toObservable(tasksFacade.tasks, { injector }).pipe(
+    switchMap(() => toObservable(tasksFacade.loading, { injector })),
+    filter((loading) => !loading),
+    take(1)
+  );
 };
 
 export const projectsRoutes: Route[] = [

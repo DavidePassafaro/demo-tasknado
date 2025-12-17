@@ -2,7 +2,7 @@ import { Component, inject, computed, signal, ChangeDetectionStrategy } from '@a
 import { Router, ActivatedRoute } from '@angular/router';
 import { DatePipe, CommonModule } from '@angular/common';
 import { EditEntityComponent, EntityInput } from '../../components/edit-entity/edit-entity.component';
-import { TasksService } from '@shared/data-access';
+import { TasksFacade } from '@shared/state-management';
 import { Task } from '@shared/models';
 
 @Component({
@@ -15,7 +15,7 @@ import { Task } from '@shared/models';
 export class TaskDetailComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-  private tasksService = inject(TasksService);
+  private tasksFacade = inject(TasksFacade);
 
   protected taskId = signal<number>(0);
   protected isEditMode = signal(false);
@@ -44,7 +44,7 @@ export class TaskDetailComponent {
   protected toggleTask(): void {
     const currentTask = this.task();
     if (currentTask) {
-      this.tasksService.updateTask(currentTask.id, {
+      this.tasksFacade.updateTask(currentTask.id, {
         status: currentTask.status === 'completed' ? 'pending' : 'completed',
       });
     }
@@ -64,7 +64,7 @@ export class TaskDetailComponent {
   protected saveEdit(taskInput: EntityInput): void {
     const currentTask = this.task();
     if (currentTask) {
-      this.tasksService.updateTask(currentTask.id, {
+      this.tasksFacade.updateTask(currentTask.id, {
         title: taskInput.name,
         description: taskInput.description,
       });
@@ -85,7 +85,7 @@ export class TaskDetailComponent {
   protected deleteTask(): void {
     const currentTask = this.task();
     if (currentTask && confirm('Are you sure you want to delete this task?')) {
-      this.tasksService.deleteTask(currentTask.id);
+      this.tasksFacade.deleteTask(currentTask.id);
       this.router.navigate(['/projects', this.route.snapshot.paramMap.get('id')]);
     }
   }
@@ -97,7 +97,7 @@ export class TaskDetailComponent {
   private getTask(): Task | null {
     const id = this.taskId();
     if (!id) return null;
-    const task = this.tasksService.getTask(id);
+    const task = this.tasksFacade.selectTaskById(id)();
     return task || null;
   }
 }

@@ -2,7 +2,7 @@ import { Injectable, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as ProjectsSelectors from './projects.selectors';
 import { ProjectsApiActions } from './projects.actions';
-import { ProjectInput } from '@shared/models';
+import { ProjectInput, ProjectUpdate } from '@shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class ProjectsFacade {
@@ -26,7 +26,7 @@ export class ProjectsFacade {
     this.store.dispatch(ProjectsApiActions.createProject({ project }));
   }
 
-  updateProject(id: number, changes: Partial<ProjectInput>) {
+  updateProject(id: number, changes: ProjectUpdate) {
     this.store.dispatch(ProjectsApiActions.updateProject({ id, changes }));
   }
 

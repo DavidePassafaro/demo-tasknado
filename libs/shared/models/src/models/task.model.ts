@@ -9,4 +9,6 @@ export interface Task {
   projectId: number;
 }
 
-export type TaskInput = Pick<Task, 'title' | 'description'>;
+export type TaskInput = Pick<Task, 'title' | 'description'> & { projectId?: number; status?: string };
+
+export type TaskUpdate = Partial<Omit<Task, 'id' | 'createdAt' | 'updatedAt' | 'projectId'>>;

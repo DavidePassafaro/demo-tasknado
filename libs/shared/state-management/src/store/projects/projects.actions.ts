@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Project, ProjectInput } from '@shared/models';
+import { Project, ProjectInput, ProjectUpdate } from '@shared/models';
 
 export const ProjectsApiActions = createActionGroup({
   source: 'Projects API',
@@ -12,7 +12,7 @@ export const ProjectsApiActions = createActionGroup({
     'Create Project Success': props<{ project: Project }>(),
     'Create Project Error': props<{ error: string }>(),
 
-    'Update Project': props<{ id: number; changes: Partial<ProjectInput> }>(),
+    'Update Project': props<{ id: number; changes: ProjectUpdate }>(),
     'Update Project Success': props<{ project: Project }>(),
     'Update Project Error': props<{ error: string }>(),
 

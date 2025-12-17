@@ -3,24 +3,25 @@ import { TasksApiActions } from './tasks.actions';
 import { Task } from '@shared/models';
 export interface TasksState {
   tasks: Task[];
+  projectId: number | null;
   loading: boolean;
   error: string | null;
-  currentProjectId: number | null;
 }
 
 export const initialTasksState: TasksState = {
   tasks: [],
+  projectId: null,
   loading: false,
   error: null,
-  currentProjectId: null,
 };
 
 export const tasksReducer = createReducer(
   initialTasksState,
 
   // Load Tasks
-  on(TasksApiActions.loadTasks, (state) => ({
+  on(TasksApiActions.loadTasks, (state, { projectId }) => ({
     ...state,
+    projectId,
     loading: true,
     error: null,
   })),
@@ -84,5 +85,5 @@ export const tasksReducer = createReducer(
     ...state,
     loading: false,
     error,
-  })),
+  }))
 );
